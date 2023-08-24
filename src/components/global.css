@@ -1,0 +1,14 @@
+th{
+    background-color: "rgb(157, 199, 201)";
+  }
+/* .card-body{
+  overflow-y: scroll;
+} */
+/* .container{
+  height: 80vh;
+} */
+
+#outlined-basic{
+  width: 50vw;
+  height: 10rem;
+}
