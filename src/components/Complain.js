@@ -41,17 +41,6 @@ useEffect(()=>{
         setAlert(false);
     },[5000])
 },[])
-    // const addStudent =()=>{
-
-
-    //     console.log(data);
-    //     http.post('/addStudent', data).then(res=>{
-    //         console.log(res);
-    //         if(res.data.status == 422){
-    //             console.log("Error happen");
-    //         }
-    //     });
-    // }
 
     return (
         <>

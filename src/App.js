@@ -1,19 +1,3 @@
-/* import logo from './logo.svg'; */
-// import './App.css';
-// import { Routes,Route } from 'react-router-dom';
-// import Dashboard from './components/Dashboard';
-// import AlertBox from './components/AlertBox';
-
-// function App() {
-//   return (
-//     <>
-//       <AlertBox />
-//     </>
-//   );
-// }
-
-// export default App;
-
 import React, { useEffect, useState } from 'react';
 import { Switch, Router, Route, Navigate } from 'react-router-dom';
 import { Routes, BrowserRouter } from 'react-router-dom';
