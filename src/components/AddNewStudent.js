@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link } from "react-router-dom"
-import Api from "./Api";
 import React from 'react';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
@@ -29,7 +28,6 @@ const AddNewStudent = () => {
     const [status, setStatus] = useState('');
 
     const [alert, setAlert] = useState(false)
-    const { http } = Api();
     const dispatch = useDispatch();
     const loading = useSelector(state => state.students.loading);
     const error = useSelector(state => state.students.error);

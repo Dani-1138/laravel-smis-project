@@ -40,7 +40,7 @@ const App = () => {
 <BrowserRouter>
   <Routes>
    <Route element={<Navigate replace={true} to="/login" />} path="/" />
-   <Route path="/login" element={<LoginForm />} />
+   {!isAuthFetched && !userRole && <Route path="/login" element={<LoginForm />} />}
   </Routes>
   {isAuthFetched && userRole && userRole[0] && (<Dashboard userRole={userRole[0]?.role}>
     <Routes>

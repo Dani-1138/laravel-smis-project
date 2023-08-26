@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link } from "react-router-dom"
-import Api from "./Api";
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addUserRequest } from '../redux/actions/userAction';

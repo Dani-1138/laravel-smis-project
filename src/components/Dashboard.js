@@ -7,7 +7,6 @@ import AddNewStudent from './AddNewStudent';
 import Quiz from './quize';
 import { Link } from 'react-router-dom';
 import ExamForm from './ExamForm';
-import { Quizzz } from './quize2';
 import ViewDepartmentTable from './ViewDepartment';
 import UpdateStudent from './updateSudent';
 import AddNewUser from './AddUser';
