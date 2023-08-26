@@ -44,7 +44,7 @@ const App = () => {
         
     }else {
       
-      // setIsAuthFetched(true); // Set the flag even if no userRole is stored
+      setIsAuthFetched(true); // Set the flag even if no userRole is stored
     }
   }, []);
 

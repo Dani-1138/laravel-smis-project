@@ -104,7 +104,13 @@ function Dashboard({userRole, children}) {
                                 <i className="fas fa-fw fa-tachometer-alt"></i>
                                 <span>Dashboard</span></Link>
                         </li>}
-
+                        {userRole == "student" && <li className="nav-item">
+                            <Link to="/stu-dashboard" className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                                aria-expanded="true" aria-controls="collapsePages">
+                                <i className="fas fa-fw fa-tachometer-alt" style={{height: '2rem', width: '2rem'}}></i>
+                                <span>Dashboard</span>
+                            </Link>
+                        </li>}
                         {/*  <!-- Divider --> */}
                         <hr className="sidebar-divider" />
 
@@ -172,7 +178,7 @@ function Dashboard({userRole, children}) {
                             </Link>
                         </li>}
                         {userRole == "student" && <li className="nav-item">
-                            <Link to="/student/complain" className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                            <Link to="/complain" className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                                 aria-expanded="true" aria-controls="collapsePages">
                                 {/* <i className="fas fa-fw fa-folder"></i> */}
                                 <TbWriting style={{height: '2rem', width: '2rem'}}/>
@@ -187,6 +193,7 @@ function Dashboard({userRole, children}) {
                                 <span>Placement</span>
                             </Link>
                         </li>}
+                        
                         {userRole == "student" && <li className="nav-item">
                             <Link to="/department-choice" className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                                 aria-expanded="true" aria-controls="collapsePages">

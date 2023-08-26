@@ -38,7 +38,12 @@ function LoginForm() {
      
     localStorage.setItem('userRole', JSON.stringify(newUser));
     dispatch(loginUser(newUser));
-    navigate('/dashboard');
+    if(newUser[0]?.role === 'student'){
+      navigate('/stu-dashboard');
+    }else{
+      navigate('/dashboard');
+
+    }
     }else{
       setAlert(true);
       setAlertContent('Please Insert Correct password');

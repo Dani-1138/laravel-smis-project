@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import BarChart from "./BarChart";
 import DoughnutChart from "./DonatChart";
-import { fetchStudentsRequest } from "../redux/actions/studentActions";
+import { fetchStudentRequest, fetchStudentsRequest } from "../redux/actions/studentActions";
 import { useEffect } from "react";
 import { fetchComplainRequest, fetchComplainsRequest } from "../redux/actions/complainAction";
 
@@ -10,15 +10,13 @@ const StudentDashboard =()=>{
     const students = useSelector(state => state.students.students);
     const userRole = useSelector(state=> state.role.role)
     const complains = useSelector(state => state.complains.complains)
-
     useEffect(() => {
-        dispatch(fetchStudentsRequest(userRole[0].user_id));
-      }, []);
-
-      useEffect(() => {
         dispatch(fetchComplainRequest(userRole[0].user_id));
       }, []); 
-
+    useEffect(() => {
+        dispatch(fetchStudentRequest(userRole[0].user_id));
+        console.log(students)
+      }, []);
 
 
     //   const qualified = students.filter((student)=> student.total_point > 50);
@@ -44,7 +42,7 @@ const StudentDashboard =()=>{
                   <div className="col mr-2">
                          <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">
                             Complain Response</div>
-                            {/* {complains[0].response &&    <div className="h5 mb-0 font-weight-bold text-gray-800">{complains[0].response}</div>} */}
+                            {complains[0]?.response &&    <div className="h5 mb-0 font-weight-bold text-gray-800">{complains[0].response}</div>}
                     </div>
                     <div className="col-auto">
                         {/* <i className="fas fa-calendar fa-2x text-gray-300"></i> */}
@@ -62,7 +60,7 @@ const StudentDashboard =()=>{
                     <div className="col mr-2">
                         <div className="text-xs font-weight-bold text-success text-uppercase mb-1">
                             Total Point(100%)</div>
-                        {/* {students[0].total_point &&<div className="h5 mb-0 font-weight-bold text-gray-800">{students[0].total_point}</div>} */}
+                        {students[0]?.total_point &&<div className="h5 mb-0 font-weight-bold text-gray-800">{students[0]?.total_point}</div>}
                     </div>
                     <div className="col-auto">
                         {/* <i className="fas fa-dollar-sign fa-2x text-gray-300"></i> */}

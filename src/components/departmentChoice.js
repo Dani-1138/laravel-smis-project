@@ -62,7 +62,9 @@ import Select from '@mui/material/Select';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchDepartmentsRequest } from '../redux/actions/departmentActions';
 import Button from '@mui/material/Button';
-
+import AlertTitle from '@mui/material/AlertTitle';
+import Stack from '@mui/material/Stack';
+import Alert from '@mui/material/Alert';
 import { updateDepartment } from '../redux/actions/chooseDepartmentAction';
 import { fetchStudentRequest, fetchStudentsRequest } from '../redux/actions/studentActions';
 
@@ -74,6 +76,7 @@ export default function BasicSelect() {
   const error = useSelector((state) => state.departments.error);
   const students = useSelector(state => state.students.students);
   const userRole = useSelector(state => state.role.role);
+  const [alert, setAlert] = useState(false)
   
     useEffect(() => {
       // Dispatch the fetchStudentsRequest action when the component mounts
@@ -102,9 +105,15 @@ export default function BasicSelect() {
     // You can process and save the selected choices in the database here.
     const newDepartment = choices;
     dispatch(updateDepartment(userRole[0].user_id, newDepartment));
-    console.log(newDepartment);
+    setAlert(true)
   };
+  useEffect(()=>{
 
+    setTimeout(()=>{
+      setAlert(false);
+    },[8000])
+  }
+  ,[alert])
 // const dept =JSON.parse(students[0].choosen_department);
 const dept = ''
   return (
@@ -131,6 +140,12 @@ const dept = ''
           </FormControl>
         </Box>
       ))}
+      {alert && <Stack sx={{ width: '100%', }} spacing={2} >
+        <Alert severity="success">
+          <AlertTitle>Sucess</AlertTitle>
+          Department choice successfully
+        </Alert>
+      </Stack>}
       <Button variant="contained" onClick={handleFormSubmit}>
         Submit
       </Button>

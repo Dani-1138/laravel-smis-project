@@ -22,8 +22,8 @@
 //   }
 // }
 
-// function* userSaga() {
+// function* roleSaga() {
 //   yield takeLatest(LOGIN_USER, handleLogin);
 // }
 
-// export default userSaga;
+// export default roleSaga;

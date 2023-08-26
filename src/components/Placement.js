@@ -21,9 +21,7 @@ function StudentPlacement() {
         // dispatch(fetchUsersRequest());
     }, [students]);
 
-    if (loading) {
-        return <div>Loading...</div>;
-    }
+
 
 
     return (
