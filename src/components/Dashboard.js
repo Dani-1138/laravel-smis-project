@@ -127,7 +127,7 @@ function Dashboard({userRole, children}) {
                                 aria-expanded="true" aria-controls="collapseTwo">
                                 {/* <i className="fas fa-fw fa-cog"></i> */}
                                 <IoIosPeople style={{height: '2rem', width: '2rem'}} />
-                                <span>View Students</span>
+                                <span>Qualified Students</span>
                             </Link>
                         </li>}
 
@@ -217,7 +217,7 @@ function Dashboard({userRole, children}) {
                                 <span>Reset Password</span>
                             </Link>
                         </li>}
-                        {userRole == "admin" && <li className="nav-item">
+                        {userRole == "registral" && <li className="nav-item">
                             <Link to="/add-user" className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                                 aria-expanded="true" aria-controls="collapsePages">
                                 {/* <i className="fas fa-fw fa-folder"></i> */}
@@ -230,6 +230,13 @@ function Dashboard({userRole, children}) {
                                 aria-expanded="true" aria-controls="collapsePages">
                                 <i className="fas fa-fw fa-folder"></i>
                                 <span>Assign Department</span>
+                            </Link>
+                        </li>}
+                        {userRole == "coordinator" && <li className="nav-item">
+                            <Link to="/notification" className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                                aria-expanded="true" aria-controls="collapsePages">
+                                <i className="fas fa-fw fa-folder"></i>
+                                <span>Notification</span>
                             </Link>
                         </li>}
 

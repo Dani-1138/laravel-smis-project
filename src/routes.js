@@ -20,6 +20,8 @@ import BasicSelect from "./components/departmentChoice";
 import Quiz from "./components/quize";
 import UpdateStudent from "./components/updateSudent";
 import StudentDetail from "./components/StudentDetailPage";
+import CountdownTimer from "./components/Timer";
+import Notification from "./components/Notification";
 
 export const routes = [
   {
@@ -48,7 +50,7 @@ export const routes = [
     exact: true,
     path: '/view-student',
     isProtected: true,
-    allowedRole: 'admin',
+    allowedRole: 'registral',
   },
   {
     element: <ViewStudentTable />,
@@ -86,12 +88,19 @@ export const routes = [
     allowedRole: 'coordinator',
   },
   {
-    element: <ViewDepartmentTable />,
+    element: <Notification />,
     exact: true,
-    path: '/department',
+    path: '/notification',
     isProtected: true,
     allowedRole: 'coordinator',
   },
+  // {
+  //   element: <ViewDepartmentTable />,
+  //   exact: true,
+  //   path: '/department',
+  //   isProtected: true,
+  //   allowedRole: 'registral',
+  // },
   {
     element: <UpdateStudent />,
     exact: true,
@@ -102,9 +111,9 @@ export const routes = [
   {
     element: <AddNewStudent />,
     exact: true,
-    path: '/add-user',
+    path: '/add-student',
     isProtected: true,
-    allowedRole: 'admin',
+    allowedRole: 'registral',
   },
   {
     element: <BasicSelect />,
@@ -153,7 +162,7 @@ export const routes = [
     exact: true,
     path: '/add-user',
     isProtected: true,
-    allowedRole: 'admin',
+    allowedRole: 'registral',
   },
   {
     element: <UpdateStudent />,
@@ -163,10 +172,24 @@ export const routes = [
     allowedRole: 'registral',
   },
   {
+    element: <ViewDepartmentTable />,
+    exact: true,
+    path: '/department',
+    isProtected: true,
+    allowedRole: 'coordinator',
+  },
+  {
     element: <StudentDetail />,
     exact: true,
     path: '/student-detail/:id',
     isProtected: true,
     allowedRole: 'admin',
-  }  
+  },
+  {
+    element: <CountdownTimer />,
+    exact: true,
+    path: '/timer',
+    isProtected: true,
+    allowedRole: 'student',
+  } 
 ];

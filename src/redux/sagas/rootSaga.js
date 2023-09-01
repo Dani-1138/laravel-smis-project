@@ -8,6 +8,7 @@ import ChooseDepartmentSaga from './chooseDepartmentSaga';
 import complainSaga from './complainSaga';
 import UpdateDepartmentSaga from './updateStudentDepartmentSaga';
 import statusSaga from './statusSaga';
+import notificationSaga from './notificationSaga';
 
 function* rootSaga() {
   // Use the all effect to run multiple sagas concurrently
@@ -20,7 +21,8 @@ function* rootSaga() {
     ChooseDepartmentSaga(),
     complainSaga(),
     UpdateDepartmentSaga(),
-    statusSaga()
+    statusSaga(),
+    notificationSaga()
 
     // Add more sagas here if needed
   ]);

@@ -4,20 +4,24 @@ import DoughnutChart from "./DonatChart";
 import { fetchStudentRequest, fetchStudentsRequest } from "../redux/actions/studentActions";
 import { useEffect } from "react";
 import { fetchComplainRequest, fetchComplainsRequest } from "../redux/actions/complainAction";
+import { fetchNotificationRequest } from "../redux/actions/notificationAction";
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Stack from '@mui/material/Stack';
 
 const StudentDashboard =()=>{
     const dispatch = useDispatch();
     const students = useSelector(state => state.students.students);
     const userRole = useSelector(state=> state.role.role)
     const complains = useSelector(state => state.complains.complains)
+    const notifications = useSelector(state => state.notification.notification);
     useEffect(() => {
         dispatch(fetchComplainRequest(userRole[0].user_id));
       }, []); 
     useEffect(() => {
         dispatch(fetchStudentRequest(userRole[0].user_id));
-        console.log(students)
-      }, []);
-
+        dispatch(fetchNotificationRequest());
+    },[])
 
     //   const qualified = students.filter((student)=> student.total_point > 50);
     return(
@@ -115,6 +119,12 @@ const StudentDashboard =()=>{
             </div>
         </div>
     </div>
+    {notifications.map(notify=><Stack>
+       <Alert severity="info">
+        <AlertTitle>{notify.title}</AlertTitle>
+        {notify.description} — <strong>{notify.created_at}</strong>
+      </Alert>
+      </Stack>)}
 </div>
 
 {/*  <!-- Content Row --> */}

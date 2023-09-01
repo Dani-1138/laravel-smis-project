@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchExamsRequest } from '../redux/actions/examAction';
 import { fetchStudentRequest, updateCOCRequest, updateStudentRequest } from '../redux/actions/studentActions';
 import { fetchStatusRequest } from '../redux/actions/statusAction';
+import CountdownTimer from './Timer';
 
 const Quiz = () => {
   const [activeQuestion, setActiveQuestion] = useState(0)
@@ -144,7 +145,11 @@ useEffect(()=>{
 
   return (
    <div class="quize">
-   {examStatus &&  <div className="quiz-container bg-white shadow">
+    
+   {examStatus && 
+   <div style={{flexDirection: 'column'}}>
+   <CountdownTimer />
+   <div className="quiz-container bg-white shadow">
       {!showResult && question.length > 0 ? (
         <div>
           <div>
@@ -192,8 +197,9 @@ useEffect(()=>{
           </p>
         </div>
       )}
-    </div>}
+    </div> </div>}
     {!examStatus && <h2>Exam Not Found</h2>}
+   
     </div>
   )
 }

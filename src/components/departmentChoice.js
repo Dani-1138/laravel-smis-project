@@ -114,8 +114,7 @@ export default function BasicSelect() {
     },[8000])
   }
   ,[alert])
-// const dept =JSON.parse(students[0].choosen_department);
-const dept = ''
+const dept =students.len ? students[0]?.choosen_department : '';
   return (
     <div className="container mt-5">
       { departments && departments.map((selectedDept, index) => (
@@ -165,8 +164,6 @@ const dept = ''
                     <td>{i+1}</td>
                     <td>{depts}</td>
                   </tr>)}
-
-            
               </tbody>
             </table>
           </div>

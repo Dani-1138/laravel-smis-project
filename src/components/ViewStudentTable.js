@@ -34,6 +34,7 @@ function ViewStudentTable() {
   const [show, setShow] = useState(false);
   const [showUpdate, setShowUpdate] = useState(false);
   const [search,setSearch] = useState('');
+  const userRole = useSelector(state => state.role.role);
 
   const navigate = useNavigate()
   const data = {
@@ -80,12 +81,17 @@ useEffect(() => {
   const handleShowUpdate = () => {setShowUpdate(true)}
 
 
-  if (loading) {
-    return <div>Loading...</div>
-  }
-
- const filteredStudents = students.filter(student =>
-    student.firstName?.toLowerCase().includes(search.toLowerCase())) 
+  // if (loading) {
+  //   return <div>Loading...</div>
+  // }
+console.log(userRole);
+ const filteredStudents = students.filter(student =>{
+    if(userRole[0]?.role === 'admin'){
+   return   student.firstName?.toLowerCase().includes(search.toLowerCase()) && (student.total_point > 50)
+    }else{
+    return  student.firstName?.toLowerCase().includes(search.toLowerCase())
+    }
+    }) 
 
   return (
 
