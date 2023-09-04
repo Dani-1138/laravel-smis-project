@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUser } from '../redux/actions/roleAction'; 
+import { loginUser, loginUserRequest } from '../redux/actions/roleAction'; 
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Stack from '@mui/material/Stack';
@@ -28,21 +28,19 @@ function LoginForm() {
   const userRole = useSelector(state => state.role.role);
 
   const handleLogin = () => {
-   const newUser = users.filter(user=> user.user_id === user_id && user.firstName === password);
-    setUser(newUser)
+  //  const newUser = users.filter(user=> user.user_id === user_id && user.firstName === password);
+    // setUser(newUser)
     if(user_id !== '' && password !== ''){
+      const res =   dispatch(loginUserRequest(user_id, password));
+      dispatch(loginUser(JSON.parse(localStorage.getItem('userRole'))));
+   if(userRole?.length > 0){
 
-   if(newUser.length > 0){
-    const res =   dispatch(loginUser(newUser));
-    console.log(newUser)
-     
-    localStorage.setItem('userRole', JSON.stringify(newUser));
-    dispatch(loginUser(newUser));
-    if(newUser[0]?.role === 'student'){
+
+    // dispatch(loginUser(userRole));
+    if(userRole[0]?.role === 'student'){
       navigate('/stu-dashboard');
     }else{
       navigate('/dashboard');
-
     }
     }else{
       setAlert(true);
@@ -58,22 +56,18 @@ function LoginForm() {
 
   // Call the authentication logic when the app loads
 useEffect(()=>{
-
+  
   setTimeout(()=>{
     setAlert(false);
   },[10000])
 }
 ,[alert])
-
   
   useEffect(()=>{
     dispatch(fetchUsersRequest());
-    console.log(users)
   },[])
 
-
   return (
-
     <MDBContainer style={{maxWidth: "30%", minWidth: "30%"}} className="p-3 my-5 d-flex flex-column w-50">
     {alert && <Stack sx={{ width: '100%', marginBottom: '1rem' }} spacing={2}>
     <Alert severity="error">

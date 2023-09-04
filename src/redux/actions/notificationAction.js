@@ -6,6 +6,10 @@ export const FETCH_NOTIFICATION_REQUEST = 'FETCH_NOTIFICATION_REQUEST';
 export const FETCH_NOTIFICATION_SUCCESS = 'FETCH_NOTIFICATION_SUCCESS';
 export const FETCH_NOTIFICATION_FAILURE = 'FETCH_NOTIFICATION_FAILURE';
 
+export const DELETE_NOTIFICATION_REQUEST = 'DELETE_NOTIFICATION_REQUEST';
+export const DELETE_NOTIFICATION_SUCCESS = 'DELETE_NOTIFICATION_SUCCESS';
+export const DELETE_NOTIFICATION_FAILURE = 'DELETE_NOTIFICATION_FAILURE';
+
 export const fetchNotificationRequest = ()=> ({
     type: FETCH_NOTIFICATION_REQUEST,
   });
@@ -34,5 +38,20 @@ export const fetchNotificationRequest = ()=> ({
   
   export const addNotificationFailure = (error) => ({
     type: ADD_NOTIFICATION_FAILURE,
+    payload: error,
+  });
+
+  export const deleteNotificationRequest = (studentId) => ({
+    type: DELETE_NOTIFICATION_REQUEST,
+    payload: studentId,
+  });
+  
+  export const deleteNotificationSuccess = (studentId) => ({
+    type: DELETE_NOTIFICATION_SUCCESS,
+    payload: studentId,
+  });
+  
+  export const deleteNotificationFailure = (error) => ({
+    type: DELETE_NOTIFICATION_FAILURE,
     payload: error,
   });

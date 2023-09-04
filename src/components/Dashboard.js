@@ -24,7 +24,7 @@ import {MdLockReset } from 'react-icons/md'
 import {PiExamLight } from 'react-icons/pi'
 import {GiArchiveRegister } from 'react-icons/gi'
 import {FcDepartment } from 'react-icons/fc'
-import { loginUser } from '../redux/actions/roleAction';
+import { loginUser, loginUserRequest } from '../redux/actions/roleAction';
 
 
 function Dashboard({userRole, children}) {
@@ -51,7 +51,7 @@ function Dashboard({userRole, children}) {
     },[])
 
     const handleLogout=()=>{
-        dispatch(loginUser([]));
+        dispatch(loginUserRequest([]));
         localStorage.clear();
         navigate('/');
     }
@@ -352,7 +352,7 @@ function Dashboard({userRole, children}) {
                                     <li className="nav-item dropdown no-arrow">
                                         <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span className="mr-2 d-none d-lg-inline text-gray-600 small">{user[0].firstName} {user[0].middleName}</span>
+                                           <span className="mr-2 d-none d-lg-inline text-gray-600 small">{ user[0]?.firstName} {user[0]?.middleName}</span>
                                             <img className="img-profile rounded-circle"
                                                 src="img/undraw_profile.svg" />
                                         </a>

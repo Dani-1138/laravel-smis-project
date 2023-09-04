@@ -12,10 +12,8 @@ import updateDepartmentReducer from './reducers/updateStudentDepartment';
 import statusReducer from './reducers/statusReducer';
 import notificationReducer from './reducers/notificationReducer';
 
-
-
 const rootReducer = combineReducers({
-  students: studentReducer,departments: departmentReducer,exams: examReducer, user: userReducer,role: roleReducer,chooseDept:chooseDepartmentReducer,complains:complainReducer, updateDepartmentReducer:updateDepartmentReducer,status:statusReducer,notification: notificationReducer,
+  role: roleReducer,students: studentReducer,departments: departmentReducer,exams: examReducer, user: userReducer,chooseDept:chooseDepartmentReducer,complains:complainReducer, updateDepartmentReducer:updateDepartmentReducer,status:statusReducer,notification: notificationReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();

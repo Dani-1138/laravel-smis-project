@@ -89,12 +89,6 @@ const AddNewStudent = () => {
         <>
             <div>
                 <div className="container mt-5">
-                    {alert && <Stack sx={{ width: '100%' }} spacing={2}>
-                        <Alert severity="success">
-                            <AlertTitle>Success</AlertTitle>
-                           Student Successfully Registered
-                        </Alert>
-                    </Stack>}
                     <div className="row">
                         <div className="col-md-12">
                             <div className="card">
@@ -195,6 +189,12 @@ const AddNewStudent = () => {
 
                                                 onChange={(e) => setStatus(e.target.value)} />
                                         </div>
+                                        {alert && <Stack sx={{ width: '100%' }} spacing={2}>
+                        <Alert severity="success">
+                            <AlertTitle>Success</AlertTitle>
+                           Student Successfully Registered
+                        </Alert>
+                    </Stack>}
                                         <div>
                                             <button type="submit" className="btn btn-primary">Save Student</button>
                                         </div>

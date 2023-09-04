@@ -17,7 +17,6 @@ export const updateDepartmentAssign = async (id, department) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ department: department }),
-    
   });
   console.log(response);
   if (!response.ok) {

@@ -57,7 +57,7 @@ function* updateStudentSaga(action) {
 function* deleteStudentSaga(action) {
   try {
     const studentId = action.payload;
-    yield axios.delete(`${API_BASE_URL}/students/${studentId}`);
+    yield axios.post(`${API_BASE_URL}/deletestudent/${studentId}`);
     yield put(actionTypes.deleteStudentSuccess(studentId));
   } catch (error) {
     yield put(actionTypes.deleteStudentFailure(error.message));

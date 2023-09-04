@@ -55,6 +55,28 @@ const notificationReducer = (state = initialState, action) => {
         loading: false,
         error: action.payload,
       };
+      case actionTypes.DELETE_NOTIFICATION_SUCCESS:
+        const filteredStudents = state.notification.filter(
+          (student) => student.id !== action.payload
+        );
+        return {
+          ...state,
+          students: filteredStudents,
+          loading: false,
+        };
+        case actionTypes.DELETE_NOTIFICATION_REQUEST:
+          return {
+            ...state,
+            loading: true,
+            error: null,
+          };
+          case actionTypes.DELETE_NOTIFICATION_FAILURE:
+            return {
+              ...state,
+              loading: false,
+              error: action.payload,
+            };
+      
     default:
       return state;
   }

@@ -16,7 +16,7 @@ function* rootSaga() {
     studentSaga(),
     departmentSaga(),
     examSaga(),
-    // roleSaga(),
+    roleSaga(),
     userSaga(),
     ChooseDepartmentSaga(),
     complainSaga(),

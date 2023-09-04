@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addNotificationRequest, fetchNotificationRequest } from "../redux/actions/notificationAction";
+import { addNotificationRequest, deleteNotificationRequest, fetchNotificationRequest } from "../redux/actions/notificationAction";
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Stack from '@mui/material/Stack';
+import { deleteStudentRequest } from "../redux/actions/studentActions";
+import DeleteConfirmation from "./DeleteModal";
+import { Link, useNavigate } from "react-router-dom";
 
 const Notification = () => {
     const [title,setTitle] = useState('');
@@ -12,6 +15,10 @@ const Notification = () => {
     const dispatch = useDispatch();
     const [response,setRespose] = useState({msg: '', status: 0})
     const notifications = useSelector(state => state.notification.notification);
+    const [displayConfirmationModal, setDisplayConfirmationModal] = useState(false);
+    const [deleteId, setDeleteId] = useState('')
+    const [effect,setEffect] = useState('')
+    const navigate = useNavigate();
     const handleOnSubmit =()=>{
         const data = {
             title: title,
@@ -23,6 +30,25 @@ const Notification = () => {
 
         setAlert(true);
     }
+    const submitDelete = (id) => {
+      const res = dispatch(deleteNotificationRequest(id));
+      console.log(id);
+      setDisplayConfirmationModal(false);
+      navigate('/department');
+      navigate('/notification');
+    };
+    useEffect(()=>{
+  
+    },[navigate])
+    const showDeleteModal = (id) => {
+      setDeleteId(id)
+      setDisplayConfirmationModal(true);
+    };
+  
+    // Hide the modal
+    const hideConfirmationModal = () => {
+      setDisplayConfirmationModal(false);
+    };
     useEffect(()=>{
         setTimeout(()=>{
             setAlert(false)
@@ -44,6 +70,7 @@ const Notification = () => {
             <label>Notification title</label>
             <input type="text" name="id" className="form-control" style={{width: 500}}
                 onChange={(e) => setTitle(e.target.value)} 
+                value={description}
                 />
         </div>
       <label htmlFor="exampleFormControlTextarea1" className="m-3">Notification detail</label>
@@ -53,17 +80,20 @@ const Notification = () => {
         rows="5"
         style={{width: 500, marginLeft: 50}}
         onChange={e => setDescription(e.target.value)}
+        value={title}
       />
       <div>
         <button type="submit" className="btn btn-primary m-3" onClick={handleOnSubmit}>Submit</button>
        </div>
        {notifications.map(notify=><Stack>
        <Alert severity="info">
-       <a class="delete" title="Delete" data-toggle="tooltip" style={{ color: "red" }}><i class="material-icons">&#xE872;</i></a>
+       <Link class="delete" title="Delete" data-toggle="tooltip" style={{ color: "red" }}><i class="material-icons" onClick={() => showDeleteModal(notify.id)}>&#xE872;</i></Link>
         <AlertTitle>{notify.title}</AlertTitle>
         {notify.description} — <strong>{notify.created_at}</strong>
       </Alert>
       </Stack>)}
+      <DeleteConfirmation showModal={displayConfirmationModal} confirmModal={submitDelete} hideModal={hideConfirmationModal} id={deleteId} message={'Are you sure you want to delete this post?'}/>
+
     </div>
   );
 };

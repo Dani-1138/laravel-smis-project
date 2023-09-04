@@ -4,11 +4,14 @@ import { Button, Modal, Input } from 'react-bootstrap';
 //cp
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchStudentsRequest } from '../redux/actions/studentActions';
+import { deleteStudentRequest, fetchStudentsRequest } from '../redux/actions/studentActions';
 import { Link, useNavigate } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import { updateStudentRequest } from "../redux/actions/studentActions";
 import UpdateStudent from "./updateSudent";
+import Box from '@mui/material/Box';
+import Skeleton from '@mui/material/Skeleton';
+import DeleteConfirmation from "./DeleteModal";
 
 function ViewStudentTable() {
 
@@ -35,6 +38,10 @@ function ViewStudentTable() {
   const [showUpdate, setShowUpdate] = useState(false);
   const [search,setSearch] = useState('');
   const userRole = useSelector(state => state.role.role);
+  const [displayConfirmationModal, setDisplayConfirmationModal] = useState(false);
+  const [deleteId, setDeleteId] = useState('')
+  const [effect,setEffect] = useState('')
+
 
   const navigate = useNavigate()
   const data = {
@@ -79,7 +86,29 @@ useEffect(() => {
   const handleShow = () => setShow(true);
   const handleCloseUpdate = () => setShowUpdate(false);
   const handleShowUpdate = () => {setShowUpdate(true)}
+  const confirmModal =(id)=>{
+   const res = dispatch(deleteStudentRequest(id));
 
+  }
+  const submitDelete = (id) => {
+    const res = dispatch(deleteStudentRequest(id));
+    console.log(id);
+    setDisplayConfirmationModal(false);
+    navigate('/add-student');
+    navigate('/view-student')
+  };
+  useEffect(()=>{
+
+  },[effect])
+  const showDeleteModal = (id) => {
+    setDeleteId(id)
+    setDisplayConfirmationModal(true);
+  };
+
+  // Hide the modal
+  const hideConfirmationModal = () => {
+    setDisplayConfirmationModal(false);
+  };
 
   // if (loading) {
   //   return <div>Loading...</div>
@@ -93,7 +122,7 @@ console.log(userRole);
     }
     }) 
 
-  return (
+    return (
 
     <div class="container ">
       <div className="crud shadow-lg p-3 mb-5 mt-5 bg-body rounded">
@@ -141,10 +170,14 @@ console.log(userRole);
                       <Link to={`/student-detail/${student.student_id}`} class="view" title="View" data-toggle="tooltip" style={{ color: "#10ab80" }}><i class="material-icons">&#xE417;</i></Link>
                       <Link to={`/update-student/${student.student_id}`} href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons" onClick={handleShowUpdate} >&#xE254;</i></Link>
                       
-                      <a class="delete" title="Delete" data-toggle="tooltip" style={{ color: "red" }}><i class="material-icons">&#xE872;</i></a>
+                      <Link class="delete" title="Delete" data-toggle="tooltip" style={{ color: "red" }}><i class="material-icons" onClick={() => showDeleteModal(student.student_id)}>&#xE872;</i></Link>
                       
                     </td>
-                  </tr>) : <div>Loading....</div>}
+                  </tr>) : <Box sx={{ width: 300 }}>
+      <Skeleton />
+      <Skeleton animation="wave" />
+      <Skeleton animation={false} />
+    </Box>}
                   {/* <UpdateStudent showUpdate={showUpdate} 
                               handleShowUpdate={handleShowUpdate}
                               handleCloseUpdate={handleCloseUpdate}
@@ -273,6 +306,7 @@ console.log(userRole);
           {/* Model Box Finsihs */}
         </div>
       </div>
+      <DeleteConfirmation showModal={displayConfirmationModal} confirmModal={submitDelete} hideModal={hideConfirmationModal} id={deleteId} message={'Are you sure you want to delete this student?'}/>
     </div>
   );
 }

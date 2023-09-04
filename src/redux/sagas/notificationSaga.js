@@ -28,11 +28,22 @@ function* fetchNotificationSaga() {
   }
 }
 
+function* deleteNotificationSaga(action) {
+  try {
+    const studentId = action.payload;
+    yield axios.post(`${API_BASE_URL}/deletepost/${studentId}`);
+    yield put(actionTypes.deleteNotificationSuccess(studentId));
+  } catch (error) {
+    yield put(actionTypes.deleteNotificationFailure(error.message));
+  }
+}
+
 // Watcher Saga
 function* notificationSaga() {
   yield all([
     takeLatest(actionTypes.FETCH_NOTIFICATION_REQUEST, fetchNotificationSaga),
     yield takeLatest(actionTypes.ADD_NOTIFICATION_REQUEST, addNotificationSaga),
+    takeLatest(actionTypes.DELETE_NOTIFICATION_REQUEST, deleteNotificationSaga),
 
   ]);
 }

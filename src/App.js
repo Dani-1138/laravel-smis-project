@@ -12,7 +12,7 @@ import LoginForm from './components/Login';
 import { routes } from './routes';
 import Dashboard from './components/Dashboard';
 import { fetchUsersRequest } from './redux/actions/userAction';
-import { loginUser } from './redux/actions/roleAction';
+import { loginUser, loginUserRequest } from './redux/actions/roleAction';
 
 const App = () => {
   const [isAuthFetched, setIsAuthFetched] = useState(false);
@@ -20,7 +20,6 @@ const App = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-
     const storedUserRole = JSON.parse(localStorage.getItem('userRole'));
     if (storedUserRole) {
       const res =   dispatch(loginUser(storedUserRole))
@@ -42,7 +41,7 @@ const App = () => {
    <Route element={<Navigate replace={true} to="/login" />} path="/" />
    <Route path="/login" element={<LoginForm />} />
   </Routes>
-  {isAuthFetched && userRole && userRole[0] && (<Dashboard userRole={userRole[0]?.role}>
+  {isAuthFetched && userRole && userRole[0]!== "user not found" && (<Dashboard userRole={userRole[0]?.role}>
     <Routes>
     {routes.map((route,i) => (
             <React.Fragment key={i}>

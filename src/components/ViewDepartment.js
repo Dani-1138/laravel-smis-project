@@ -10,6 +10,40 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchDepartmentsRequest } from '../redux/actions/departmentActions';
 import { addDepartmentRequest } from "../redux/actions/departmentActions";
+import { Avatar, Skeleton } from "@mui/material";
+//
+import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+
+const Image = styled('img')({
+  width: '100%',
+});
+
+function SkeletonChildrenDemo() {
+
+  return (
+    <div>
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box sx={{ margin: 1 }}>
+            <Skeleton variant="circular">
+              <Avatar />
+            </Skeleton>
+        </Box>
+        <Box sx={{ width: '100%' }}>
+          
+            <Skeleton width="100%">
+              <Typography>.</Typography>
+            </Skeleton>
+        </Box>
+      </Box>
+        <Skeleton variant="rectangular" width="100%">
+          <div style={{ paddingTop: '57%' }} />
+        </Skeleton>
+    </div>
+  );
+}
  
 function ViewDepartmentTable() {
 
@@ -50,7 +84,14 @@ function ViewDepartmentTable() {
     }, []);
   
     if (loading) {
-      return <div>Loading...</div>;
+      return     <Grid container spacing={8}>
+      <Grid item xs>
+        <SkeletonChildrenDemo />
+      </Grid>
+      <Grid item xs>
+        <SkeletonChildrenDemo />
+      </Grid>
+    </Grid>  
     }
  
   return (
@@ -159,3 +200,4 @@ function ViewDepartmentTable() {
 }
  
 export default ViewDepartmentTable;
+
