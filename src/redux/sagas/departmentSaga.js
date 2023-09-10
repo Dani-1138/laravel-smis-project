@@ -1,4 +1,4 @@
-import { put, takeLatest, all } from 'redux-saga/effects';
+import { put, takeLatest, all, call } from 'redux-saga/effects';
 import * as actionTypes from '../actions/departmentActions';
 import axios from 'axios';
 
@@ -26,12 +26,26 @@ function* fetchDepartmentsSaga() {
     yield put(actionTypes.fetchDepartmentsFailure(error.message));
   }
 }
+function* fetchDepartmentSaga(action) {
+  try {
+    const response = yield call(axios.get, `${API_BASE_URL}/singledept/${action.payload}`);
+    console.log(response.data);
+    if (response.status === 200) {
+      yield put(actionTypes.fetchDepartmentSuccess(response.data));
+    } else {
+      yield put(actionTypes.fetchDepartmentFailure('Failed to fetch department'));
+    }
+  } catch (error) {
+    yield put(actionTypes.fetchDepartmentFailure('An error occurred while fetching department'));
+  }
+}
 
 // Update student
 function* updateDepartmentSaga(action) {
   try {
     const { departmentId, data } = action.payload;
-    const response = yield axios.put(`${API_BASE_URL}/students/${departmentId}`, data);
+    const response = yield axios.put(`${API_BASE_URL}/updatedepartment/${departmentId}`, data);
+    console.log(response);
     yield put(actionTypes.updateDepartmentSuccess(response.data));
   } catch (error) {
     yield put(actionTypes.updateDepartmentFailure(error.message));
@@ -53,6 +67,7 @@ function* deleteDepartmentSaga(action) {
 function* departmentSaga() {
   yield all([
     takeLatest(actionTypes.FETCH_DEPARTMENTS_REQUEST, fetchDepartmentsSaga),
+    takeLatest(actionTypes.FETCH_DEPARTMENT_REQUEST, fetchDepartmentSaga),
     takeLatest(actionTypes.UPDATE_DEPARTMENT_REQUEST, updateDepartmentSaga),
     takeLatest(actionTypes.DELETE_DEPARTMENT_REQUEST, deleteDepartmentSaga),
     yield takeLatest(actionTypes.ADD_DEPARTMENT_REQUEST, addDepartmentSaga),

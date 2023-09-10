@@ -70,7 +70,7 @@ const Notification = () => {
             <label>Notification title</label>
             <input type="text" name="id" className="form-control" style={{width: 500}}
                 onChange={(e) => setTitle(e.target.value)} 
-                value={description}
+                // value={description}
                 />
         </div>
       <label htmlFor="exampleFormControlTextarea1" className="m-3">Notification detail</label>
@@ -80,7 +80,7 @@ const Notification = () => {
         rows="5"
         style={{width: 500, marginLeft: 50}}
         onChange={e => setDescription(e.target.value)}
-        value={title}
+        // value={title}
       />
       <div>
         <button type="submit" className="btn btn-primary m-3" onClick={handleOnSubmit}>Submit</button>

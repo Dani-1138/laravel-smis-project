@@ -239,6 +239,13 @@ function Dashboard({userRole, children}) {
                                 <span>Notification</span>
                             </Link>
                         </li>}
+                        {userRole == "admin" && <li className="nav-item">
+                            <Link to="/department" className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                                aria-expanded="true" aria-controls="collapsePages">
+                                <i className="fas fa-fw fa-folder"></i>
+                                <span>Manage Department</span>
+                            </Link>
+                        </li>}
 
                     </ul>
                     {/*  <!-- End of Sidebar --> */}
@@ -315,7 +322,7 @@ function Dashboard({userRole, children}) {
                                             <h6 className="dropdown-header">
                                                 Complains
                                             </h6>
-                                            {complains.map(complain =>(
+                                            {complains ? complains.map(complain =>(
                                             <div className="dropdown-item d-flex align-items-center" onClick={handleShow}>
                                             
                                             
@@ -337,7 +344,7 @@ function Dashboard({userRole, children}) {
                                                                         lastName={complain.student_last_name}
                                                                         complain={complain.complain} />
                                                     </div>
-                                            </div>))}
+                                            </div>)): <div>Loading</div>}
 
 
                                         
@@ -377,23 +384,7 @@ function Dashboard({userRole, children}) {
                             {/*  <!-- End of Topbar --> */}
 
                             {/* <!-- Begin Page Content --> */}
-                            {/* <Routes>
-                                <Route path='/dashboard' element={<RegistralDashboardComponent />} />
-                                <Route path='/view-student' element={<ViewStudentTable />} />
-                                <Route path='/add-student' element={<AddNewStudent />} />
-                                <Route path='/student/quize' element={<Quiz />} />
-                                <Route path='/quize2' element={<Quizzz />} />
-                                <Route path='/exam' element={<ExamForm />} />
-                                <Route path='/department' element={<ViewDepartmentTable />} />
-                                <Route path='/update-student' element={<UpdateStudent />} />
-                                <Route path='/add-user' element={<AddNewUser />} />
-                                <Route path='/department-choice/department-choice' element={<BasicSelect />} />
-                                <Route path='/student/complain' element={<Complain />} />
-                                <Route path='/complain-detail' element={<ComplainDetail />} />
-                                <Route path='/student/placement' element={<StudentPlacement />} />
-                            </Routes> */}
                             {children}
-                            {/*   <!-- /.container-fluid --> */}
 
                         </div>
                         {/*   <!-- End of Main Content -->
@@ -402,7 +393,7 @@ function Dashboard({userRole, children}) {
                         <footer className="sticky-footer bg-white">
                             <div className="container my-auto">
                                 <div className="copyright text-center my-auto">
-                                    <span>Copyright &copy; Your Website 2021</span>
+                                    <span>Copyright &copy; 2023</span>
                                 </div>
                             </div>
                         </footer>

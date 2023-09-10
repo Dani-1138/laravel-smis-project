@@ -2,6 +2,7 @@ import * as actionTypes from '../actions/studentActions';
 
 const initialState = {
   students: [],
+  student: [],
   loading: false,
   error: null,
 };
@@ -78,7 +79,7 @@ const studentReducer = (state = initialState, action) => {
         return {
           ...state,
           loading: false,
-          students: action.payload,
+          student: action.payload,
         };
       case actionTypes.FETCH_STUDENT_FAILURE:
         return {

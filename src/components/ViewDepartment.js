@@ -8,7 +8,7 @@ import "./global.css"
 //cp
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchDepartmentsRequest } from '../redux/actions/departmentActions';
+import { deleteDepartmentRequest, fetchDepartmentsRequest } from '../redux/actions/departmentActions';
 import { addDepartmentRequest } from "../redux/actions/departmentActions";
 import { Avatar, Skeleton } from "@mui/material";
 //
@@ -16,13 +16,14 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+import { Link, useNavigate } from "react-router-dom";
+import DeleteConfirmation from "./DeleteModal";
 
 const Image = styled('img')({
   width: '100%',
 });
 
 function SkeletonChildrenDemo() {
-
   return (
     <div>
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -56,14 +57,37 @@ function ViewDepartmentTable() {
     const [show, setShow] = useState(false);
       const error = useSelector(state => state.departments.error);
       const [alert, setAlert] = useState(false)
-      
-      const data = {
-        department:department,
-        intake:intake,
-        status:status,
+      const [displayConfirmationModal, setDisplayConfirmationModal] = useState(false);
+      const [deleteId, setDeleteId] = useState('')
+       const [effect,setEffect] = useState('')
+       const [search,setSearch] = useState('');
 
-    }
+    const navigate = useNavigate()
+    const submitDelete = (id) => {
+      const res = dispatch(deleteDepartmentRequest(id));
+      console.log(id);
+      setDisplayConfirmationModal(false);
+      navigate('/exam');
+      navigate('/department')
+    };
+    useEffect(()=>{
+  
+    },[effect])
+    const showDeleteModal = (id) => {
+      setDeleteId(id)
+      setDisplayConfirmationModal(true);
+    };
+  
+    // Hide the modal
+    const hideConfirmationModal = () => {
+      setDisplayConfirmationModal(false);
+    };
+    const data = {
+      department:department,
+      intake:intake,
+      status:status,
 
+  } 
       const handleSubmit = (e) => {
         e.preventDefault();
        const response =  dispatch(addDepartmentRequest(data));
@@ -93,7 +117,10 @@ function ViewDepartmentTable() {
       </Grid>
     </Grid>  
     }
- 
+    const filteredDepartments = departments.filter(department =>{
+
+      return  department.department?.toLowerCase().includes(search.toLowerCase())
+      }) 
   return (
  
        <div class="container ">
@@ -109,7 +136,7 @@ function ViewDepartmentTable() {
            <div class="col-sm-3 mt-5 mb-4 text-gred">
               <div className="search">
                 <form class="form-inline">
-                 <input class="form-control mr-sm-2" type="search" placeholder="Search department" aria-label="Search"/>
+                 <input class="form-control mr-sm-2" type="search" onChange={e => setSearch(e.target.value)} placeholder="Search department" aria-label="Search"/>
                 
                 </form>
               </div>    
@@ -135,16 +162,15 @@ function ViewDepartmentTable() {
                     </thead>
                     <tbody>
                       
-                {departments &&  departments.map((dep,index)=>(
+                {filteredDepartments &&  filteredDepartments.map((dep,index)=>(
                         <tr key={index}>
                             <td>{index + 1}</td>
                             <td>{dep.department}</td>
                             <td>{dep.intake}</td>
                             <td>{dep.status}</td>
                             <td>
-                               <a href="#" class="view" title="View" data-toggle="tooltip" style={{color:"#10ab80"}}><i class="material-icons">&#xE417;</i></a>
-                                <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                                <a href="#" class="delete" title="Delete" data-toggle="tooltip" style={{color:"red"}}><i class="material-icons">&#xE872;</i></a>
+                                <Link to={`/update-department/${dep.id}`} href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></Link>
+                                <a href="#" class="delete" title="Delete" data-toggle="tooltip" style={{color:"red"}}><i class="material-icons" onClick={() => showDeleteModal(dep.id)}>&#xE872;</i></a>
                                  
                             </td>
                         </tr>))
@@ -195,6 +221,8 @@ function ViewDepartmentTable() {
        </div>  
           
       </div>    
+      <DeleteConfirmation showModal={displayConfirmationModal} confirmModal={submitDelete} hideModal={hideConfirmationModal} id={deleteId} message={'Are you sure you want to delete this student?'}/>
+
       </div>  
   );
 }

@@ -2,6 +2,7 @@ import * as actionTypes from '../actions/departmentActions';
 
 const initialState = {
   departments: [],
+  department: [],
   loading: false,
   error: null,
 };
@@ -47,7 +48,7 @@ const departmentReducer = (state = initialState, action) => {
       );
       return {
         ...state,
-        students: updatedDepartments,
+        departments: updatedDepartments,
         loading: false,
       };
       
@@ -68,6 +69,25 @@ const departmentReducer = (state = initialState, action) => {
         loading: false,
         error: action.payload,
       };
+      case actionTypes.FETCH_DEPARTMENT_REQUEST:
+        return {
+          ...state,
+          loading: true,
+          error: null,
+        };
+      case actionTypes.FETCH_DEPARTMENT_SUCCESS:
+        console.log(action.payload)
+        return {
+          ...state,
+          loading: false,
+          department: action.payload,
+        };
+      case actionTypes.FETCH_DEPARTMENT_FAILURE:
+        return {
+          ...state,
+          loading: false,
+          error: action.payload,
+        };
     default:
       return state;
   }

@@ -5,7 +5,7 @@ import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Stack from '@mui/material/Stack';
 import { useDispatch, useSelector } from 'react-redux';
-import { addStudentRequest, fetchStudentRequest, updateStudentRequest } from '../redux/actions/studentActions';
+import { fetchStudentRequest, updateStudentRequest } from '../redux/actions/studentActions';
 import './global.css'
 
 
@@ -28,7 +28,7 @@ const UpdateStudent = () => {
 
     const [alert, setAlert] = useState(false)
     const dispatch = useDispatch();
-    const students = useSelector(state => state.students.students);
+    const students = useSelector(state => state.students.student);
     const loading = useSelector(state => state.students.loading);
     const error = useSelector(state => state.students.error);
 
@@ -38,44 +38,44 @@ const UpdateStudent = () => {
     // );
     const idd = student_id;
     useEffect(()=>{
-      dispatch(fetchStudentRequest(student_id));
-      setId(students[0].student_id)
-      setStatus(students[0].status)
-      setAge(students[0].age)
-      setFirstName(students[0].firstName)
-      setMiddleName(students[0].middleName)
-      setLastName(students[0].lastName)
-      setCocResult(students[0].cocResult)
-      setDepartment(students[0].department)
-      setCgpa(students[0].cgpa)
-      setEmail(students[0].email)
-      setPassword(students[0].password)
-      setPhone(students[0].phone)
-      setSex(students[0].sex)
-      setBatch(students[0].batch)
-      setEntranceResult(students[0].entranceResult)
+        dispatch(fetchStudentRequest(student_id));
+        console.log(students)
+      setId(students.student_id)
+      setStatus(students.status)
+      setAge(students.age)
+      setFirstName(students.firstName)
+      setMiddleName(students.middleName)
+      setLastName(students.lastName)
+      setCocResult(students.cocResult)
+      setDepartment(students.department)
+      setCgpa(students.cgpa)
+      setEmail(students.email)
+      setPassword(students.password)
+      setPhone(students.phone)
+      setSex(students.sex)
+      setBatch(students.batch)
+      setEntranceResult(students.entranceResult)
     },[]);
-    console.log(id);
-    const data = {
-        studentId: id,
-        firstName: firstName,
-        middleName: middleName,
-        lastName: lastName,
-        email: email,
-        password: password,
-        sex: sex,
-        age: age,
-        phone: phone,
-        entranceResult: entranceResult,
-        cgpa: cgpa,
-        cocResult: cocResult,
-        department: department,
-        batch: batch,
-        status: status
-    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const data = {
+            studentId: id,
+            firstName: firstName,
+            middleName: middleName,
+            lastName: lastName,
+            email: email,
+            password: password,
+            sex: sex,
+            age: age,
+            phone: phone,
+            entranceResult: entranceResult,
+            cgpa: cgpa,
+            cocResult: cocResult,
+            department: department,
+            batch: batch,
+            status: status
+        }
       const response =  dispatch(updateStudentRequest(idd,data));
       console.log(response)
         if(response){
@@ -98,7 +98,6 @@ const UpdateStudent = () => {
             // setCocResult('');
         }
     };
-    
 
     return (
         <>

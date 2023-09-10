@@ -7,6 +7,10 @@ export const FETCH_DEPARTMENTS_REQUEST = 'FETCH_DEPARTMENTS_REQUEST';
 export const FETCH_DEPARTMENTS_SUCCESS = 'FETCH_DEPARTMENTS_SUCCESS';
 export const FETCH_DEPARTMENTS_FAILURE = 'FETCH_DEPARTMENTS_FAILURE';
 
+export const FETCH_DEPARTMENT_REQUEST = 'FETCH_DEPARTMENT_REQUEST';
+export const FETCH_DEPARTMENT_SUCCESS = 'FETCH_DEPARTMENT_SUCCESS';
+export const FETCH_DEPARTMENT_FAILURE = 'FETCH_DEPARTMENT_FAILURE';
+
 export const UPDATE_DEPARTMENT_REQUEST = 'UPDATE_DEPARTMENT_REQUEST';
 export const UPDATE_DEPARTMENT_SUCCESS = 'UPDATE_DEPARTMENT_SUCCESS';
 export const UPDATE_DEPARTMENT_FAILURE = 'UPDATE_STUDENT_FAILURE';
@@ -46,6 +50,21 @@ export const fetchDepartmentsSuccess = (department) => ({
 });
 
 export const fetchDepartmentsFailure = (error) => ({
+  type: FETCH_DEPARTMENT_FAILURE,
+  payload: error,
+});
+
+export const fetchDepartmentRequest = (id) => ({
+  type: FETCH_DEPARTMENT_REQUEST,
+  payload: id
+});
+
+export const fetchDepartmentSuccess = (department) => ({
+  type: FETCH_DEPARTMENT_SUCCESS,
+  payload: department,
+});
+
+export const fetchDepartmentFailure = (error) => ({
   type: FETCH_DEPARTMENTS_FAILURE,
   payload: error,
 });

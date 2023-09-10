@@ -107,7 +107,6 @@ function* statusSaga() {
     yield takeLatest(actionTypes.UPDATE_EXAM_STATUS_REQUEST, updateExamStatusSaga),
     yield takeLatest(actionTypes.UPDATE_COMPLAIN_STATUS_REQUEST, updateComplainStatusSaga),
     yield takeLatest(actionTypes.UPDATE_DEPARTMENT_STATUS_REQUEST, updateDepartmentStatusSaga),
-
   ]);
 }
 
