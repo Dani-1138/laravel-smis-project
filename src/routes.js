@@ -22,6 +22,7 @@ import UpdateStudent from "./components/updateSudent";
 import StudentDetail from "./components/StudentDetailPage";
 import CountdownTimer from "./components/Timer";
 import Notification from "./components/Notification";
+import UpdateDepartment from "./components/updateDepartment";
 
 export const routes = [
   {
@@ -163,6 +164,13 @@ export const routes = [
     path: '/add-user',
     isProtected: true,
     allowedRole: 'registral',
+  },
+  {
+    element: <UpdateDepartment />,
+    exact: true,
+    path: '/update-department/:department_id',
+    isProtected: true,
+    allowedRole: 'coordinator',
   },
   {
     element: <UpdateStudent />,
