@@ -26,18 +26,16 @@ function LoginForm() {
   const navigate = useNavigate()
   const users = useSelector(state=> state.user.users)
   const userRole = useSelector(state => state.role.role);
+  const isAuth = useSelector(state => state.role.isAuthenticated);
 
   const handleLogin = () => {
-  //  const newUser = users.filter(user=> user.user_id === user_id && user.firstName === password);
-    // setUser(newUser)
     if(user_id !== '' && password !== ''){
       const res =   dispatch(loginUserRequest(user_id, password));
       dispatch(loginUser(JSON.parse(localStorage.getItem('userRole'))));
-   if(userRole?.length > 0){
-
-
+      console.log(userRole)
+      if(userRole[0]?.role){
     // dispatch(loginUser(userRole));
-    if(userRole[0]?.role === 'student'){
+    if(userRole[0].role === 'student'){
       navigate('/stu-dashboard');
     }else{
       navigate('/dashboard');

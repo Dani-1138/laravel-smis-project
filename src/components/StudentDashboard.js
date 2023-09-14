@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import BarChart from "./BarChart";
 import DoughnutChart from "./DonatChart";
 import { fetchStudentRequest, fetchStudentsRequest } from "../redux/actions/studentActions";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchComplainRequest, fetchComplainsRequest } from "../redux/actions/complainAction";
 import { fetchNotificationRequest } from "../redux/actions/notificationAction";
 import Alert from '@mui/material/Alert';
@@ -15,12 +15,31 @@ const StudentDashboard =()=>{
     const userRole = useSelector(state=> state.role.role)
     const complains = useSelector(state => state.complains.complains)
     const notifications = useSelector(state => state.notification.notification);
+    
+
+    const [res, setRes] = useState('')
+    const [tot,setTot] = useState('')
     useEffect(() => {
-        dispatch(fetchComplainRequest(userRole[0].user_id));
-      }, []); 
+       const res =  dispatch(fetchComplainsRequest())
+       dispatch(fetchComplainsRequest())
+       dispatch(fetchComplainsRequest())
+       dispatch(fetchComplainsRequest())
+       dispatch(fetchComplainsRequest())
+       const resStu = complains.filter((comp)=> comp.student_id == userRole[0].user_id)
+
+        // dispatch(fetchComplainRequest(userRole[0].user_id));
+
+      }, []);
+
     useEffect(() => {
-        dispatch(fetchStudentRequest(userRole[0].user_id));
+        dispatch(fetchStudentsRequest(userRole.user_id));
+        const stu = students.filter((stu)=> stu.student_id == userRole.user_id)
+        
+        console.log(students)
+        console.log(students[0]?.total_point)
+        console.log(stu)
         dispatch(fetchNotificationRequest());
+        setTot(stu[0]?.total_point)
     },[])
 
     //   const qualified = students.filter((student)=> student.total_point > 50);
@@ -46,7 +65,7 @@ const StudentDashboard =()=>{
                   <div className="col mr-2">
                          <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">
                             Complain Response</div>
-                            {complains[0]?.response &&    <div className="h5 mb-0 font-weight-bold text-gray-800">{complains[0].response}</div>}
+                           <div className="h5 mb-0 font-weight-bold text-gray-800">{res}</div>
                     </div>
                     <div className="col-auto">
                         {/* <i className="fas fa-calendar fa-2x text-gray-300"></i> */}
@@ -64,7 +83,7 @@ const StudentDashboard =()=>{
                     <div className="col mr-2">
                         <div className="text-xs font-weight-bold text-success text-uppercase mb-1">
                             Total Point(100%)</div>
-                        {students[0]?.total_point &&<div className="h5 mb-0 font-weight-bold text-gray-800">{students[0]?.total_point}</div>}
+                        <div className="h5 mb-0 font-weight-bold text-gray-800">{tot}</div>
                     </div>
                     <div className="col-auto">
                         {/* <i className="fas fa-dollar-sign fa-2x text-gray-300"></i> */}
@@ -101,7 +120,6 @@ const StudentDashboard =()=>{
             </div>
         </div>
     </div>
-
     {/*  <!-- Pending Requests Card Example --> */}
     <div className="col-xl-3 col-md-6 mb-4">
         <div className="card border-left-warning shadow h-100 py-2">

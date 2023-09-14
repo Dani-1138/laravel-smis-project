@@ -17,13 +17,13 @@ function StudentPlacement() {
     console.log(students)
     useEffect(() => {
         // Dispatch the fetchStudentsRequest action when the component mounts
-        dispatch(fetchStudentRequest(userRole[0].user_id));
+        dispatch(fetchStudentsRequest());
         // dispatch(fetchUsersRequest());
-    }, [students]);
+    }, []);
 
 
-
-
+    const student = students.filter((stu)=> stu.student_id == userRole[0].user_id)
+    console.log(students)
     return (
 
         <div class="container ">
@@ -63,7 +63,7 @@ function StudentPlacement() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {students.map(student =>
+                                {student.map(student =>
                                     <tr>
                                         <td>{student.student_id}</td>
                                         <td>{student.firstName}</td>

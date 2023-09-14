@@ -17,7 +17,7 @@ const UpdateDepartment = () => {
     const [alert, setAlert] = useState(false)
     const dispatch = useDispatch();
     const navigate = useNavigate()
-    const departments = useSelector(state => state.departments.department);
+    const departments = useSelector(state => state.departments.departments);
     const loading = useSelector(state => state.departments.loading);
     const error = useSelector(state => state.departments.error);
 
@@ -26,12 +26,16 @@ const UpdateDepartment = () => {
     //   student.student_id.toLowerCase().includes(student_id.toLowerCase())
     // );
     const idd = department_id;
+
+
     useEffect(()=>{
-     const res = dispatch(fetchDepartmentRequest(department_id));
-        console.log(res);
-      setDepartment(departments.department && departments.department)
-      setStatus(departments.status)
-      setIntake(departments.intake)
+    //  const res = dispatch(fetchDepartmentRequest(department_id));
+        // console.log(res);
+        const UpdateDepartment = departments.filter((dep)=> dep.id == department_id)
+        console.log(UpdateDepartment)
+      setDepartment(UpdateDepartment[0].department && UpdateDepartment[0].department)
+      setStatus(UpdateDepartment[0].status)
+      setIntake(UpdateDepartment[0].intake)
       console.log(departments)
     },[]);
 

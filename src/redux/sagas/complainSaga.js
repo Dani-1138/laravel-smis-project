@@ -40,7 +40,7 @@ function* fetchComplainsSaga() {
 // }
 
 export const updateStudentDepartment = async (id, response) => {
-  const responses = await fetch(`${API_BASE_URL}/complain/${id}`, {
+  const responses = await fetch(`${API_BASE_URL}/updatecomplain/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -60,16 +60,17 @@ export const updateStudentDepartment = async (id, response) => {
 // Saga function to handle the update department action
 function* updateComplainSaga(action) {
   try {
-    const { studentId, response } = action.payload;
+    const { id, response } = action.payload;
     console.log(response);
     console.log(response);
     // Call the API to update the department in the database
-    yield call(updateStudentDepartment, studentId, response);
-    yield put({ type: UPDATE_COMPLAIN_SUCCESS, payload: { studentId, response } });
+    yield call(updateStudentDepartment, id, response);
+    yield put({ type: UPDATE_COMPLAIN_SUCCESS, payload: { id, response } });
   } catch (error) {
     yield put({ type: UPDATE_COMPLAIN_FAILURE, error });
   }
 }
+
 
 // Delete student
 function* deleteComplainSaga(action) {
@@ -98,7 +99,7 @@ function* fetchComplainSaga(action) {
 // Watcher Saga
 function* complainSaga() {
   yield all([
-    takeLatest(actionTypes.FETCH_COMPLAINS_REQUEST, fetchComplainsSaga),
+    yield takeLatest(actionTypes.FETCH_COMPLAINS_REQUEST, fetchComplainsSaga),
     takeLatest(actionTypes.FETCH_COMPLAIN_REQUEST, fetchComplainSaga),
     takeLatest(actionTypes.UPDATE_COMPLAIN_REQUEST, updateComplainSaga),
     takeLatest(actionTypes.DELETE_COMPLAIN_REQUEST, deleteComplainSaga),

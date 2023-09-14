@@ -139,9 +139,9 @@ console.log(userRole);
           <div class="col-sm-3 offset-sm-2 mt-5 mb-4 text-gred" style={{color:"rgb(157, 199, 201)"}}><h2><b>Students</b></h2></div>
           <div class="col-sm-3 offset-sm-1  mt-5 mb-4 text-gred">
 
-            <Button variant="primary" onClick={handleShow}>
+            {userRole[0].role == 'registral' && <Button variant="primary" onClick={handleShow}>
               Add New Student
-            </Button>
+            </Button>}
           </div>
         </div>
         <div class="row">
@@ -168,9 +168,9 @@ console.log(userRole);
 
                     <td>
                       <Link to={`/student-detail/${student.student_id}`} class="view" title="View" data-toggle="tooltip" style={{ color: "#10ab80" }}><i class="material-icons">&#xE417;</i></Link>
-                      <Link to={`/update-student/${student.student_id}`} href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons" onClick={handleShowUpdate} >&#xE254;</i></Link>
+                      {userRole[0].role == 'registral' && <Link to={`/update-student/${student.student_id}`} href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons" onClick={handleShowUpdate} >&#xE254;</i></Link>}
                       
-                      <Link class="delete" title="Delete" data-toggle="tooltip" style={{ color: "red" }}><i class="material-icons" onClick={() => showDeleteModal(student.student_id)}>&#xE872;</i></Link>
+                      {userRole[0].role == 'registral' && <Link class="delete" title="Delete" data-toggle="tooltip" style={{ color: "red" }}><i class="material-icons" onClick={() => showDeleteModal(student.student_id)}>&#xE872;</i></Link>}
                       
                     </td>
                   </tr>) : <Box sx={{ width: 300 }}>

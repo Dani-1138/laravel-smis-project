@@ -23,6 +23,8 @@ import StudentDetail from "./components/StudentDetailPage";
 import CountdownTimer from "./components/Timer";
 import Notification from "./components/Notification";
 import UpdateDepartment from "./components/updateDepartment";
+import ResponsePage from "./components/responsePage";
+import ResponseView from "./components/ResponseView";
 
 export const routes = [
   {
@@ -42,10 +44,18 @@ export const routes = [
   {
     element: <RegistralDashboardComponent/>,
     exact: true,
-    path: '/dashboard',
+    path: '/reg-dashboard',
+    isProtected: true,
+    allowedRole: 'registral',
+  },
+  {
+    element: <RegistralDashboardComponent/>,
+    exact: true,
+    path: '/co-dashboard',
     isProtected: true,
     allowedRole: 'coordinator',
   },
+
   {
     element: <ViewStudentTable />,
     exact: true,
@@ -56,7 +66,7 @@ export const routes = [
   {
     element: <ViewStudentTable />,
     exact: true,
-    path: '/view-student',
+    path: '/qualified-student',
     isProtected: true,
     allowedRole: 'admin',
   },
@@ -95,13 +105,27 @@ export const routes = [
     isProtected: true,
     allowedRole: 'coordinator',
   },
-  // {
-  //   element: <ViewDepartmentTable />,
-  //   exact: true,
-  //   path: '/department',
-  //   isProtected: true,
-  //   allowedRole: 'registral',
-  // },
+  {
+    element: <ViewDepartmentTable />,
+    exact: true,
+    path: '/department',
+    isProtected: true,
+    allowedRole: 'registral',
+  },
+  {
+    element: <ViewDepartmentTable />,
+    exact: true,
+    path: '/view-department',
+    isProtected: true,
+    allowedRole: 'coordinator',
+  },
+  {
+    element: <ViewDepartmentTable />,
+    exact: true,
+    path: '/update-department',
+    isProtected: true,
+    allowedRole: 'admin',
+  },
   {
     element: <UpdateStudent />,
     exact: true,
@@ -170,7 +194,14 @@ export const routes = [
     exact: true,
     path: '/update-department/:department_id',
     isProtected: true,
-    allowedRole: 'coordinator',
+    allowedRole: 'registral',
+  },
+  {
+    element: <UpdateDepartment />,
+    exact: true,
+    path: '/update-intake/:department_id',
+    isProtected: true,
+    allowedRole: 'admin',
   },
   {
     element: <UpdateStudent />,
@@ -178,13 +209,6 @@ export const routes = [
     path: '/update-student/:student_id',
     isProtected: true,
     allowedRole: 'registral',
-  },
-  {
-    element: <ViewDepartmentTable />,
-    exact: true,
-    path: '/department',
-    isProtected: true,
-    allowedRole: 'coordinator',
   },
   {
     element: <StudentDetail />,
@@ -197,6 +221,21 @@ export const routes = [
     element: <CountdownTimer />,
     exact: true,
     path: '/timer',
+    isProtected: true,
+    allowedRole: 'student',
+  },
+  {
+    element: <ResponsePage />,
+    exact: true,
+    path: '/response/:id',
+    isProtected: true,
+    allowedRole: 'registral',
+  } 
+  ,
+  {
+    element: <ResponseView />,
+    exact: true,
+    path: '/response-view',
     isProtected: true,
     allowedRole: 'student',
   } 

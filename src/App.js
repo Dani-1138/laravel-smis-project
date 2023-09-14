@@ -18,18 +18,20 @@ const App = () => {
   const [isAuthFetched, setIsAuthFetched] = useState(false);
   const userRole = useSelector(state => state.role.role);
   const dispatch = useDispatch()
+  const isAuth = useSelector(state => state.role.isAuthenticated)
 
   useEffect(() => {
     const storedUserRole = JSON.parse(localStorage.getItem('userRole'));
     if (storedUserRole) {
       const res =   dispatch(loginUser(storedUserRole))
+      console.log(storedUserRole)
         setIsAuthFetched(true); // Set the flag when authentication data is 
         
     }else {
       
       setIsAuthFetched(true); // Set the flag even if no userRole is stored
     }
-  }, []);
+  }, [localStorage]);
 
 
   // if (!isAuthFetched) {
@@ -39,9 +41,9 @@ const App = () => {
 <BrowserRouter>
   <Routes>
    <Route element={<Navigate replace={true} to="/login" />} path="/" />
-   <Route path="/login" element={<LoginForm />} />
+    {!userRole[0]?.role && <Route path="/login" element={<LoginForm />} />}
   </Routes>
-  {isAuthFetched && userRole && userRole[0]!== "user not found" && (<Dashboard userRole={userRole[0]?.role}>
+  {userRole && userRole[0] && userRole[0].role && (<Dashboard userRole={userRole[0]?.role}>
     <Routes>
     {routes.map((route,i) => (
             <React.Fragment key={i}>

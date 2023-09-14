@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { updateExamStatusRequest } from '../redux/actions/statusAction';
 import { useNavigate } from 'react-router-dom';
 
-const CountdownTimer = () => {
+const CountdownTimer = ({handleSubmit}) => {
   const [time, setTime] = useState(60); // 3 minutes in seconds
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
@@ -18,6 +18,7 @@ const CountdownTimer = () => {
         clearInterval(timer);
         setShowModal(true);
         dispatch(updateExamStatusRequest(1, false));
+        handleSubmit();
       }
     }, 1000);
 

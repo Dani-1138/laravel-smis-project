@@ -19,12 +19,13 @@ const Complain = () => {
     const dispatch = useDispatch();
     const loading = useSelector(state => state.complains.loading);
     const error = useSelector(state => state.complains.error);
+    const userRole = useSelector(state=> state.role.role)
 
     const data = {
-        student_id: id,
-        student_first_name: firstName,
-        student_middle_name: middleName,
-        student_last_name: lastName,
+        student_id: userRole && userRole[0].user_id,
+        student_first_name: userRole && userRole[0].firstName,
+        student_middle_name: userRole && userRole[0].middleName,
+        student_last_name: userRole && userRole[0].lastName,
         complain_type: "department",
         complain: complain,
     }
@@ -32,15 +33,16 @@ const Complain = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(addComplainRequest(data));
-        console.log(data);
+        setComplain('')
         setAlert(true);
+        console.log(error)
     };
 
 useEffect(()=>{
     setTimeout(()=>{
         setAlert(false);
     },[5000])
-},[])
+},[alert])
 
     return (
         <>
@@ -58,7 +60,7 @@ useEffect(()=>{
                                 </div>
                                 <div className="card-body">
                                     <form onSubmit={handleSubmit}>
-                                        <div className="mb-3">
+                                        {/* <div className="mb-3">
                                             <label>Id</label>
                                             <input type="text" name="id" className="form-control"
                                                 onChange={(e) => setId(e.target.value)} />
@@ -81,7 +83,7 @@ useEffect(()=>{
                                             <input type="text" name="lname" className="form-control"
 
                                                 onChange={(e) => setLastName(e.target.value)} />
-                                        </div>
+                                        </div> */}
 
 
                                         <div className="mb-3">
@@ -89,12 +91,12 @@ useEffect(()=>{
                                             {/* <input type="text" name="complain" className="form-control"
                                             
                                             onChange={(e) => setAge(e.target.value)}/> */}
-                                            <TextField id="outlined-basic" label="Complain" variant="outlined" onChange={(e) => setComplain(e.target.value)} />
+                                            <TextField id="outlined-basic" label="Complain" value={complain} variant="outlined" onChange={(e) => setComplain(e.target.value)} />
                                         </div>
                                         {alert && <Stack sx={{ width: '100%' }} spacing={2} >
                                             <Alert severity="success">
-                                                <AlertTitle>Opened</AlertTitle>
-                                                COC Exam is open For Student
+                                                <AlertTitle>Success</AlertTitle>
+                                                Complain submitted successfully
                                             </Alert>
                                         </Stack>}
 

@@ -4,8 +4,9 @@ import './quize.css'
 import { useDispatch, useSelector } from "react-redux";
 import { fetchExamsRequest } from '../redux/actions/examAction';
 import { fetchStudentRequest, updateCOCRequest, updateStudentRequest } from '../redux/actions/studentActions';
-import { fetchStatusRequest } from '../redux/actions/statusAction';
+import { fetchStatusRequest, updateExamStatusRequest } from '../redux/actions/statusAction';
 import CountdownTimer from './Timer';
+import { useNavigate } from 'react-router-dom';
 
 const Quiz = () => {
   const [activeQuestion, setActiveQuestion] = useState(0)
@@ -23,12 +24,18 @@ const Quiz = () => {
   const loading = useSelector(state => state.exams.loading);
     const error = useSelector(state => state.exams.error);
   const students = useSelector(state => state.students.students);
- const users = useSelector(state=> state.user.role);
+ const users = useSelector(state=> state.role.role);
  const statuses = useSelector(state => state.status.status);
  const studentId = users ?  users[0]?.student_id : ''
+ const navigate = useNavigate()
   const handleSubmit =()=>{
-    dispatch(updateCOCRequest(studentId,result.correctAnswers));
-   
+    dispatch(updateCOCRequest(users[0].user_id,result.correctAnswers));
+    dispatch(updateExamStatusRequest(1, false));
+  }
+  const handleFinalSubmit =()=>{
+    dispatch(updateCOCRequest(users[0].user_id,result.correctAnswers));
+    dispatch(updateExamStatusRequest(1, false));
+    navigate('/stu-dashboard')
   }
 
   useEffect(() => {
@@ -41,7 +48,7 @@ const Quiz = () => {
     if (showResult){
       handleSubmit();
     }
-  },[result.correctAnswers])
+  },[result.correctAnswers,showResult])
  
   //const studentId = "1138"
 
@@ -148,7 +155,7 @@ useEffect(()=>{
     
    {examStatus && 
    <div style={{flexDirection: 'column'}}>
-   <CountdownTimer />
+   {!showResult && <CountdownTimer handleSubmit={handleSubmit}/>}
    <div className="quiz-container bg-white shadow">
       {!showResult && question.length > 0 ? (
         <div>
@@ -170,15 +177,16 @@ useEffect(()=>{
             ))}
           </ul>
           <div className="flex-right exam-btn">
-          <button onClick={onClickPrev} disabled={selectedAnswerIndex === 0}>
+          <button onClick={onClickPrev} disabled={activeQuestion === 0}>
               {/* {activeQuestion === exams.length - 1 ? 'Finish' : 'Prev'} */}
               Prev
             </button>
-            <button onClick={onClickNext} disabled={selectedAnswerIndex === null}>
+            <button onClick={onClickNext} disabled={selectedAnswerIndex === null} style={{marginLeft: '20px'}}>
               {activeQuestion === exams.length - 1 ? 'Finish' : 'Next'}
             </button>
-            {/* <button onClick={handleSubmit}>Submit</button> */}
+            <button onClick={handleSubmit} style={{marginLeft: '20px'}}>Submit</button>
           </div>
+
         </div>
       ) : (
         <div className="result">
@@ -195,6 +203,7 @@ useEffect(()=>{
           <p>
             Wrong Answers:<span> {result.wrongAnswers}</span>
           </p>
+          <button onClick={handleFinalSubmit}>Submit</button>
         </div>
       )}
     </div> </div>}

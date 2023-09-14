@@ -35,21 +35,24 @@ function Dashboard({userRole, children}) {
     const user = useSelector(state => state.role.role);
     const navigate = useNavigate()
 
-
     useEffect(() => {
+            dispatch(loginUser(JSON.parse(localStorage.getItem('userRole'))));
+            console.log(user)
         dispatch(fetchComplainsRequest())
-    }, [])
+    }, [userRole])
+    useEffect(() => {
+    dispatch(fetchComplainsRequest())
+}, [])
 
     const handleShow = () => setShow(true);
     const handleClose = () =>{
         setShow(false);
     }
 
-    useEffect(()=>{
-        dispatch(loginUser(JSON.parse(localStorage.getItem('userRole'))));
-
-    },[])
-
+const handleResponse =(id)=>{
+    navigate(`/response/${id}`)
+    console.log(id)
+}
     const handleLogout=()=>{
         dispatch(loginUserRequest([]));
         localStorage.clear();
@@ -110,6 +113,20 @@ function Dashboard({userRole, children}) {
                                 <span>Dashboard</span>
                             </Link>
                         </li>}
+                        {userRole == "registral" && <li className="nav-item">
+                            <Link to="/reg-dashboard" className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                                aria-expanded="true" aria-controls="collapsePages">
+                                <i className="fas fa-fw fa-tachometer-alt" style={{height: '2rem', width: '2rem'}}></i>
+                                <span>Dashboard</span>
+                            </Link>
+                        </li>}
+                        {userRole == "coordinator" && <li className="nav-item">
+                            <Link to="/co-dashboard" className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                                aria-expanded="true" aria-controls="collapsePages">
+                                <i className="fas fa-fw fa-tachometer-alt" style={{height: '2rem', width: '2rem'}}></i>
+                                <span>Dashboard</span>
+                            </Link>
+                        </li>}
                         {/*  <!-- Divider --> */}
                         <hr className="sidebar-divider" />
 
@@ -123,7 +140,7 @@ function Dashboard({userRole, children}) {
                             </Link>
                         </li>}
                         {userRole == "admin" && <li className="nav-item">
-                            <Link to="/view-student" className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                            <Link to="/qualified-student" className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                                 aria-expanded="true" aria-controls="collapseTwo">
                                 {/* <i className="fas fa-fw fa-cog"></i> */}
                                 <IoIosPeople style={{height: '2rem', width: '2rem'}} />
@@ -153,7 +170,7 @@ function Dashboard({userRole, children}) {
                             </Link>
                         </li>}
                         {userRole=="coordinator" && <li className="nav-item">
-                            <Link to="/department" className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                            <Link to="/view-department" className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                                 aria-expanded="true" aria-controls="collapsePages">
                                 {/* <i className="fas fa-fw fa-folder"></i> */}
                                 <FcDepartment style={{height: '2rem', width: '2rem'}} />
@@ -240,13 +257,19 @@ function Dashboard({userRole, children}) {
                             </Link>
                         </li>}
                         {userRole == "admin" && <li className="nav-item">
-                            <Link to="/department" className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                            <Link to="/update-department" className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                                 aria-expanded="true" aria-controls="collapsePages">
                                 <i className="fas fa-fw fa-folder"></i>
-                                <span>Manage Department</span>
+                                <span>Departments</span>
                             </Link>
                         </li>}
-
+                        {userRole == "student" && <li className="nav-item">
+                            <Link to="/response-view" className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                                aria-expanded="true" aria-controls="collapsePages">
+                                <i className="fas fa-fw fa-folder"></i>
+                                <span>Complain Response</span>
+                            </Link>
+                        </li>}
                     </ul>
                     {/*  <!-- End of Sidebar --> */}
 
@@ -314,7 +337,7 @@ function Dashboard({userRole, children}) {
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i className="fas fa-envelope fa-fw"></i>
                                             {/*  <!-- Counter - Messages --> */}
-                                            <span className="badge badge-danger badge-counter">7</span>
+                                            <span className="badge badge-danger badge-counter">{complains ? complains.length : 0}</span>
                                         </a>
                                         {/*   <!-- Dropdown - Messages --> */}
                                         <div className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -323,7 +346,7 @@ function Dashboard({userRole, children}) {
                                                 Complains
                                             </h6>
                                             {complains ? complains.map(complain =>(
-                                            <div className="dropdown-item d-flex align-items-center" onClick={handleShow}>
+                                             <div className="dropdown-item d-flex align-items-center" onClick={()=>handleResponse(complain.id)}>
                                             
                                             
                                                 <div className="dropdown-list-image mr-3">

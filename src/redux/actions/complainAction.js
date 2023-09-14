@@ -68,9 +68,9 @@ export const fetchComplainsFailure = (error) => ({
   payload: error,
 });
 
-export const updateComplainRequest = (studentId, response) => ({
+export const updateComplainRequest = (id, response) => ({
   type: UPDATE_COMPLAIN_REQUEST,
-  payload: { studentId, response },
+  payload: { id, response },
 });
 
 export const updateComplainSuccess = (updatedComplain) => ({

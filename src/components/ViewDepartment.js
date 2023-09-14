@@ -24,6 +24,7 @@ const Image = styled('img')({
 });
 
 function SkeletonChildrenDemo() {
+
   return (
     <div>
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -61,7 +62,7 @@ function ViewDepartmentTable() {
       const [deleteId, setDeleteId] = useState('')
        const [effect,setEffect] = useState('')
        const [search,setSearch] = useState('');
-
+       const userRole = useSelector(state=> state.role.role)
     const navigate = useNavigate()
     const submitDelete = (id) => {
       const res = dispatch(deleteDepartmentRequest(id));
@@ -143,9 +144,9 @@ function ViewDepartmentTable() {
               </div>  
               <div class="col-sm-3 offset-sm-2 mt-5 mb-4 text-gred" style={{color:"rgb(157, 199, 201)"}}><h2><b>Departments</b></h2></div>
               <div class="col-sm-3 offset-sm-1  mt-5 mb-4 text-gred">
-              <Button variant="primary" onClick={handleShow}>
+              {userRole[0].role == 'registral' && <Button variant="primary" onClick={handleShow}>
                 Add Department
-              </Button>
+              </Button>}
              </div>
            </div>  
             <div class="row">
@@ -169,9 +170,8 @@ function ViewDepartmentTable() {
                             <td>{dep.intake}</td>
                             <td>{dep.status}</td>
                             <td>
-                                <Link to={`/update-department/${dep.id}`} href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></Link>
-                                <a href="#" class="delete" title="Delete" data-toggle="tooltip" style={{color:"red"}}><i class="material-icons" onClick={() => showDeleteModal(dep.id)}>&#xE872;</i></a>
-                                 
+                                {(userRole[0].role == 'registral' || userRole[0].role == 'admin') && <Link   to={userRole[0].role == 'registral' ? `/update-department/${dep.id}` : `/update-intake/${dep.id}`} href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></Link>}
+                                {userRole[0].role == 'registral' && <a href="#" class="delete" title="Delete" data-toggle="tooltip" style={{color:"red"}}><i class="material-icons" onClick={() => showDeleteModal(dep.id)}>&#xE872;</i></a>}
                             </td>
                         </tr>))
                         }

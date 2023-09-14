@@ -28,7 +28,7 @@ const UpdateStudent = () => {
 
     const [alert, setAlert] = useState(false)
     const dispatch = useDispatch();
-    const students = useSelector(state => state.students.student);
+    const students = useSelector(state => state.students.students);
     const loading = useSelector(state => state.students.loading);
     const error = useSelector(state => state.students.error);
 
@@ -38,23 +38,24 @@ const UpdateStudent = () => {
     // );
     const idd = student_id;
     useEffect(()=>{
-        dispatch(fetchStudentRequest(student_id));
+        // dispatch(fetchStudentRequest(student_id));
+        const updateStudent = students.filter((student)=> student.student_id == student_id)
         console.log(students)
-      setId(students.student_id)
-      setStatus(students.status)
-      setAge(students.age)
-      setFirstName(students.firstName)
-      setMiddleName(students.middleName)
-      setLastName(students.lastName)
-      setCocResult(students.cocResult)
-      setDepartment(students.department)
-      setCgpa(students.cgpa)
-      setEmail(students.email)
-      setPassword(students.password)
-      setPhone(students.phone)
-      setSex(students.sex)
-      setBatch(students.batch)
-      setEntranceResult(students.entranceResult)
+      setId(updateStudent[0].student_id)
+      setStatus(updateStudent[0].status)
+      setAge(updateStudent[0].age)
+      setFirstName(updateStudent[0].firstName)
+      setMiddleName(updateStudent[0].middleName)
+      setLastName(updateStudent[0].lastName)
+      setCocResult(updateStudent[0].cocResult)
+      setDepartment(updateStudent[0].department)
+      setCgpa(updateStudent[0].cgpa)
+      setEmail(updateStudent[0].email)
+      setPassword(updateStudent[0].password)
+      setPhone(updateStudent[0].phone)
+      setSex(updateStudent[0].sex)
+      setBatch(updateStudent[0].batch)
+      setEntranceResult(updateStudent[0].entranceResult)
     },[]);
 
     const handleSubmit = (e) => {
