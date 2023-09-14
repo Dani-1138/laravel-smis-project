@@ -33,14 +33,16 @@ function LoginForm() {
       const res =   dispatch(loginUserRequest(user_id, password));
       dispatch(loginUser(JSON.parse(localStorage.getItem('userRole'))));
       console.log(userRole)
-      if(userRole[0]?.role){
+      console.log(JSON.parse(localStorage.getItem('userRole')))
+      if(JSON.parse(localStorage.getItem('userRole'))[0].role){
     // dispatch(loginUser(userRole));
-    if(userRole[0].role === 'student'){
+    if(JSON.parse(localStorage.getItem('userRole'))[0].role === 'student'){
       navigate('/stu-dashboard');
     }else{
       navigate('/dashboard');
     }
     }else{
+      
       setAlert(true);
       setAlertContent('Please Insert Correct password');
     }
@@ -50,14 +52,12 @@ function LoginForm() {
   setAlertContent('Please Insert Id and Password');
 }
 }
-
-
   // Call the authentication logic when the app loads
 useEffect(()=>{
   
   setTimeout(()=>{
     setAlert(false);
-  },[10000])
+  },[5000])
 }
 ,[alert])
   

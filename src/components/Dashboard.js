@@ -38,7 +38,6 @@ function Dashboard({userRole, children}) {
     useEffect(() => {
             dispatch(loginUser(JSON.parse(localStorage.getItem('userRole'))));
             console.log(user)
-        dispatch(fetchComplainsRequest())
     }, [userRole])
     useEffect(() => {
     dispatch(fetchComplainsRequest())
@@ -268,6 +267,13 @@ const handleResponse =(id)=>{
                                 aria-expanded="true" aria-controls="collapsePages">
                                 <i className="fas fa-fw fa-folder"></i>
                                 <span>Complain Response</span>
+                            </Link>
+                        </li>}
+                        {userRole == "student" && <li className="nav-item">
+                            <Link to="/change-stu-pass" className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                                aria-expanded="true" aria-controls="collapsePages">
+                                <i className="fas fa-fw fa-folder"></i>
+                                <span>Change password</span>
                             </Link>
                         </li>}
                     </ul>

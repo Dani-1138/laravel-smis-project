@@ -26,7 +26,7 @@ export default function BasicSelect() {
   
     useEffect(() => {
       // Dispatch the fetchStudentsRequest action when the component mounts
-      dispatch(fetchStudentRequest(userRole.user_id));
+      dispatch(fetchStudentsRequest());
   }, []);
 
     useEffect(() => {
@@ -60,7 +60,10 @@ export default function BasicSelect() {
     },[8000])
   }
   ,[alert])
-const dept =students.len ? students[0]?.choosen_department : '';
+
+// const dept = students.filter((student)=> student.student_id == userRole[0].user_id);
+const dept = ''
+console.log(dept)
   return (
     <div className="container mt-5">
       { departments && departments.map((selectedDept, index) => (

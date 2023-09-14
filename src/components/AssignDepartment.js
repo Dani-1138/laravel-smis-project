@@ -54,7 +54,7 @@ export default function AssignDepartment() {
     dispatch(fetchStatusRequest());
     setExamStatus(statuses[0].exam)
   }
-
+  console.log(students)
   const handleFormSubmit = () => {
     students.sort((a, b) => b.total_point - a.total_point);
     console.log(students.sort((a, b) => b.total_point - a.total_point))
@@ -70,6 +70,7 @@ export default function AssignDepartment() {
       console.log(sortedChoices)
 
       // Assign the student to the first available choice that has capacity
+      if(student.choosen_department){
       for (const choice of sortedChoices) {
         const department = departmentCapacities.find(dep => dep.department === choice);
         if (department && department.capacity > 0) {
@@ -82,7 +83,7 @@ export default function AssignDepartment() {
         }
         console.log(department)
       }
-    });
+    }});
 
     console.log("Department assigned")
   };
@@ -90,7 +91,7 @@ export default function AssignDepartment() {
 
   return (
     <div className="container mt-5">
-      {examStatus ? <Stack sx={{ width: '100%' }} spacing={2} >
+      {statuses[0]?.exam ? <Stack sx={{ width: '100%' }} spacing={2} >
         <Alert severity="success">
           <AlertTitle>Opened</AlertTitle>
           COC Exam is open For Student
@@ -101,7 +102,7 @@ export default function AssignDepartment() {
         Exam is Closed
       </Alert></Stack>}
       <Button variant="contained" color="success" onClick={handleExamStatus} style={{marginBottom: '2rem', marginTop: '1rem' }}>
-        {examStatus ? 'HIDE EXAM' : 'VIEW EXAM'}
+        {statuses[0]?.exam ? 'HIDE EXAM' : 'VIEW EXAM'}
       </Button>
       {alert ? <Stack sx={{ width: '100%', }} spacing={2} >
         <Alert severity="success">

@@ -13,7 +13,7 @@ const roleReducer = (state = initialState, action) => {
     case LOGIN_USER_REQUEST:
       return {
         ...state,
-        role: action.payload,
+        // role: action.payload,
       };
       case LOGIN_USER_SUCCESS:
         localStorage.setItem('userRole', JSON.stringify([action.payload]));

@@ -25,6 +25,7 @@ import Notification from "./components/Notification";
 import UpdateDepartment from "./components/updateDepartment";
 import ResponsePage from "./components/responsePage";
 import ResponseView from "./components/ResponseView";
+import ChangePassword from "./components/ChangePassword";
 
 export const routes = [
   {
@@ -236,6 +237,14 @@ export const routes = [
     element: <ResponseView />,
     exact: true,
     path: '/response-view',
+    isProtected: true,
+    allowedRole: 'student',
+  } 
+  ,
+  {
+    element: <ChangePassword />,
+    exact: true,
+    path: '/change-stu-pass',
     isProtected: true,
     allowedRole: 'student',
   } 

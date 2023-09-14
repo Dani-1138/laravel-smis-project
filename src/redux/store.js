@@ -11,9 +11,10 @@ import complainReducer from './reducers/complainReducer';
 import updateDepartmentReducer from './reducers/updateStudentDepartment';
 import statusReducer from './reducers/statusReducer';
 import notificationReducer from './reducers/notificationReducer';
+import passReducer from './reducers/passwordReducer';
 
 const rootReducer = combineReducers({
-  role: roleReducer,students: studentReducer,departments: departmentReducer,exams: examReducer, user: userReducer,chooseDept:chooseDepartmentReducer,complains:complainReducer, updateDepartmentReducer:updateDepartmentReducer,status:statusReducer,notification: notificationReducer,
+  role: roleReducer,students: studentReducer,departments: departmentReducer,exams: examReducer, user: userReducer,chooseDept:chooseDepartmentReducer,complains:complainReducer, updateDepartmentReducer:updateDepartmentReducer,status:statusReducer,notification: notificationReducer,change: passReducer
 });
 
 const sagaMiddleware = createSagaMiddleware();
