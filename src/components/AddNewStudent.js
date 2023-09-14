@@ -28,9 +28,13 @@ const AddNewStudent = () => {
     const [status, setStatus] = useState('');
 
     const [alert, setAlert] = useState(false)
+    const [err, setErr] = useState(false)
     const dispatch = useDispatch();
     const loading = useSelector(state => state.students.loading);
     const error = useSelector(state => state.students.error);
+    const statuss = useSelector(state => state.students.statuss);
+    const usererr = useSelector(state => state.user.error);
+
 
     const data = {
         student_id: id,
@@ -62,29 +66,33 @@ const AddNewStudent = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if(id == '' || firstName == '' || middleName == '' || password == '' || age == '' && sex == ''){
+            setErr(true)
+            setTimeout(()=>setErr(false),3000)
+        }else{
       const response =  dispatch(addStudentRequest(data));
         const sresponse = dispatch(addUserRequest(userData));
-        if(sresponse){
+        // if(sresponse){
             setAlert(true)
+            console.log(statuss)
             setTimeout(()=>setAlert(false),3000)
-            setFirstName('');
-            setMiddleName('');
-            setLastName('');
-            setDepartment('');
-            setCgpa('');
-            setPassword('');
-            setPhone('');
-            setEntranceResult('');
-            setEmail('');
-            setId('');
-            setSex('');
-            setStatus('');
-            setAge('');
-            setBatch('');
-        }
+        //     setFirstName('');
+        //     setMiddleName('');
+        //     setLastName('');
+        //     setDepartment('');
+        //     setCgpa('');
+        //     setPassword('');
+        //     setPhone('');
+        //     setEntranceResult('');
+        //     setEmail('');
+        //     setId('');
+        //     setSex('');
+        //     setStatus('');
+        //     setAge('');
+        //     setBatch('');
+        // }
+    }
     };
-
-
     return (
         <>
             <div>
@@ -151,7 +159,7 @@ const AddNewStudent = () => {
                                         </div>
                                         <div className="mb-3">
                                             <label>Phone Number</label>
-                                            <input type="text" name="phone" className="form-control"
+                                            <input type="phone" name="phone" className="form-control"
 
                                                 onChange={(e) => setPhone(e.target.value)} />
                                         </div>
@@ -192,9 +200,14 @@ const AddNewStudent = () => {
                                         {alert && <Stack sx={{ width: '100%' }} spacing={2}>
                         <Alert severity="success">
                             <AlertTitle>Success</AlertTitle>
-                           Student Successfully Registered
+                           Student Successfully Registered'
                         </Alert>
                     </Stack>}
+                    {err && <Stack sx={{ width: '100%' }} spacing={2}>
+                    <Alert severity="error">
+        <AlertTitle>Error</AlertTitle>
+        Fill all required fields  — <strong>check it out!</strong>
+      </Alert></Stack>}
                                         <div>
                                             <button type="submit" className="btn btn-primary">Save Student</button>
                                         </div>

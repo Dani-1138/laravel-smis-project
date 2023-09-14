@@ -247,5 +247,19 @@ export const routes = [
     path: '/change-stu-pass',
     isProtected: true,
     allowedRole: 'student',
+  } ,
+  {
+    element: <ChangePassword />,
+    exact: true,
+    path: '/change-head-pass',
+    isProtected: true,
+    allowedRole: 'admin',
+  } ,
+  {
+    element: <ChangePassword />,
+    exact: true,
+    path: '/change-cor-pass',
+    isProtected: true,
+    allowedRole: 'coordinator',
   } 
 ];

@@ -12,3 +12,17 @@ th{
   width: 50vw;
   height: 10rem;
 }
+.login{
+  height: 100vh;
+  width: 100%;
+  background-image: linear-gradient(to right, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://www.amu.edu.et/images/slider/cache/1c1e5f5e616ff7d169407c3e76ac6d24/_K8A0832.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding-top: 10%;
+  padding-left: 70px;
+  /* background-image:url('https://www.amu.edu.et/images/slider/cache/1c1e5f5e616ff7d169407c3e76ac6d24/_K8A0832.jpg'); */
+}
+.white-text{
+  background-color: white;
+}

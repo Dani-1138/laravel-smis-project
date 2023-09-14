@@ -226,11 +226,19 @@ const handleResponse =(id)=>{
                             </Link>
                         </li>}
                         {userRole == "admin" && <li className="nav-item">
-                            <Link to="/reset-password" className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                            <Link to="/change-head-pass" className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                                 aria-expanded="true" aria-controls="collapsePages">
                                 {/* <i className="fas fa-fw fa-folder"></i> */}
                                 <MdLockReset style={{height: '2rem', width: '2rem'}}/>
-                                <span>Reset Password</span>
+                                <span>Change Password</span>
+                            </Link>
+                        </li>}
+                        {userRole == "coordinator" && <li className="nav-item">
+                            <Link to="/change-cor-pass" className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                                aria-expanded="true" aria-controls="collapsePages">
+                                {/* <i className="fas fa-fw fa-folder"></i> */}
+                                <MdLockReset style={{height: '2rem', width: '2rem'}}/>
+                                <span>Change Password</span>
                             </Link>
                         </li>}
                         {userRole == "registral" && <li className="nav-item">

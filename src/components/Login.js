@@ -15,6 +15,7 @@ import {
 from 'mdb-react-ui-kit';
 import { fetchUsersRequest } from '../redux/actions/userAction';
 import { useNavigate } from 'react-router-dom';
+import './global.css'
 
 function LoginForm() {
     const [user_id, setUserId] = useState('');
@@ -42,8 +43,7 @@ function LoginForm() {
       navigate('/dashboard');
     }
     }else{
-      
-      setAlert(true);
+      setTimeout(()=>setAlert(true),2000)
       setAlertContent('Please Insert Correct password');
     }
   
@@ -65,15 +65,15 @@ useEffect(()=>{
     dispatch(fetchUsersRequest());
   },[])
 
-  return (
-    <MDBContainer style={{maxWidth: "30%", minWidth: "30%"}} className="p-3 my-5 d-flex flex-column w-50">
+  return (<div className='login'>
+    <MDBContainer style={{maxWidth: "30%", minWidth: "30%", color: '#fff'}} className="p-3 my-9 d-flex flex-column w-50 ">
     {alert && <Stack sx={{ width: '100%', marginBottom: '1rem' }} spacing={2}>
     <Alert severity="error">
         <AlertTitle>Error</AlertTitle>
        {alertContent}
     </Alert>
 </Stack>}
-      <MDBInput wrapperClass='mb-4' label='User Id' id='validationCustom01' type='text' value={user_id}  
+      <MDBInput wrapperClass='mb-4' label='User Id' id='validationCustom01' type='text' value={user_id}  className={`white-text`}
         onChange={e => setUserId(e.target.value)} required />
       <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password'
           value={password}   onChange={e => setPassword(e.target.value)} required />
@@ -89,7 +89,7 @@ useEffect(()=>{
 
       </div>
 
-    </MDBContainer>
+    </MDBContainer></div>
   );
 }
 

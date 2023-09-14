@@ -63,7 +63,7 @@ const App = () => {
           ))}
         {/* <Route element={<PageNotFound />} path="*" /> */}
         {/* Add a catch-all route to handle unknown routes */}
-        <Route path="*" element={<div>Page Not Found</div>} />
+        <Route path="*" element={<div></div>} />
     </Routes>
     </Dashboard>)}
     </BrowserRouter>

@@ -4,7 +4,9 @@ const initialState = {
   students: [],
   student: [],
   loading: false,
-  error: null,
+  error: [],
+  statuss: '',
+
 };
 
 const studentReducer = (state = initialState, action) => {
@@ -21,6 +23,7 @@ const studentReducer = (state = initialState, action) => {
           ...state,
           students: [...state.students, action.payload],
           loading: false,
+          statuss: action.payload.data.status
         };
       case actionTypes.ADD_STUDENT_FAILURE:
         return {

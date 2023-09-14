@@ -14,7 +14,11 @@ import { updateDepartment } from '../redux/actions/chooseDepartmentAction';
 import { fetchStudentRequest, fetchStudentsRequest } from '../redux/actions/studentActions';
 import { updateStudentDepartment, updateStudentDepartmentAssign } from '../redux/actions/studentDeparatmentAction';
 import { fetchStatusRequest, updateExamStatusRequest } from '../redux/actions/statusAction';
-
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 export default function AssignDepartment() {
   const [choices, setChoices] = useState([]);
@@ -27,7 +31,24 @@ export default function AssignDepartment() {
   const statuses = useSelector(state => state.status.status);
   const [examStatus, setExamStatus] = useState(false);
   const [alert, setAlert] = useState(false)
+  const [conform,setConform] = useState(false)
+  const [open, setOpen] = React.useState(false);
+  const [openExam, setExamOpen] = React.useState(false);
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleExamClickOpen = () => {
+    setExamOpen(true);
+  };
+
+  const handleExamClose = () => {
+    setExamOpen(false);
+  };
   // const dept = JSON.parse(students[0].choosen_department);
 
   useEffect(() => {
@@ -53,6 +74,7 @@ export default function AssignDepartment() {
     dispatch(updateExamStatusRequest(1, !statuses[0].exam))
     dispatch(fetchStatusRequest());
     setExamStatus(statuses[0].exam)
+    // handleExamClose();
   }
   console.log(students)
   const handleFormSubmit = () => {
@@ -86,6 +108,7 @@ export default function AssignDepartment() {
     }});
 
     console.log("Department assigned")
+    handleClose();
   };
 
 
@@ -101,22 +124,71 @@ export default function AssignDepartment() {
         <AlertTitle>Closed</AlertTitle>
         Exam is Closed
       </Alert></Stack>}
-      <Button variant="contained" color="success" onClick={handleExamStatus} style={{marginBottom: '2rem', marginTop: '1rem' }}>
+      <Button variant="contained" color="success" onClick={handleExamClickOpen} style={{marginBottom: '2rem', marginTop: '1rem' }}>
         {statuses[0]?.exam ? 'HIDE EXAM' : 'VIEW EXAM'}
       </Button>
-      {alert ? <Stack sx={{ width: '100%', }} spacing={2} >
-        <Alert severity="success">
-          <AlertTitle>Assigned</AlertTitle>
-          Department is assigned for all student
-        </Alert>
-      </Stack> :     <Stack sx={{ width: '100%' }} spacing={2}>
-      <Alert severity="error">
-        <AlertTitle>Not Assigned</AlertTitle>
-        Department is not assigned for all student
-      </Alert></Stack>}
-      <Button variant="contained" onClick={handleFormSubmit} style={{marginTop: '1rem'}}>
+      
+      <Button variant="contained" onClick={handleClickOpen} style={{marginTop: '10rem', marginLeft: '-7rem'}}>
         Assign Department
       </Button>
+
+{open &&
+  <div>
+  <Button variant="outlined" onClick={handleClickOpen}>
+    Open alert dialog
+  </Button>
+  <Dialog
+    open={open}
+    onClose={handleClose}
+    aria-labelledby="alert-dialog-title"
+    aria-describedby="alert-dialog-description"
+  >
+    <DialogTitle id="alert-dialog-title">
+      {"Use Google's location service?"}
+    </DialogTitle>
+    <DialogContent>
+      <DialogContentText id="alert-dialog-description">
+        Are you sure you want to assign department to students? 
+      </DialogContentText>
+    </DialogContent>
+    <DialogActions>
+      <Button onClick={handleClose}>No, Cancel</Button>
+      <Button onClick={handleFormSubmit} autoFocus>
+        Yes, Assign
+      </Button>
+    </DialogActions>
+  </Dialog>
+</div>
+}
+
+{openExam &&
+  <div>
+  <Button variant="outlined" onClick={handleClickOpen}>
+    Open alert dialog
+  </Button>
+  <Dialog
+    open={openExam}
+    onClose={handleExamClose}
+    aria-labelledby="alert-dialog-title"
+    aria-describedby="alert-dialog-description"
+  >
+    <DialogTitle id="alert-dialog-title">
+      {"Use Google's location service?"}
+    </DialogTitle>
+    <DialogContent>
+      <DialogContentText id="alert-dialog-description">
+        Are you sure! you want to open exam to students? 
+      </DialogContentText>
+    </DialogContent>
+    <DialogActions>
+      <Button onClick={handleExamClose}>Cancel</Button>
+      <Button onClick={handleExamStatus} autoFocus>
+      {statuses[0]?.exam ? 'HIDE EXAM' : 'VIEW EXAM'}
+      </Button>
+    </DialogActions>
+  </Dialog>
+</div>
+}
     </div>
   );
 }
