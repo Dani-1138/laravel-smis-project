@@ -81,12 +81,12 @@ const UpdateDepartment = () => {
                                                 value={department}
                                                 onChange={(e) => setDepartment(e.target.value)} />
                                         </div>}
-                                        <div className="mb-3">
+                                       {userRole[0].role == 'admin' && <div className="mb-3">
                                             <label>Intake</label>
                                             <input type="text" name="mname" className="form-control"
                                             value={intake}
                                                 onChange={(e) => setIntake(e.target.value)} />
-                                        </div>
+                                        </div>}
                                         {userRole[0].role == 'registral' && <div className="mb-3">
                                             <label>Status</label>
                                             <input type="text" name="lname" className="form-control"

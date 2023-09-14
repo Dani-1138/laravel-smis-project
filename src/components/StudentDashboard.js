@@ -15,6 +15,7 @@ const StudentDashboard =()=>{
     const userRole = useSelector(state=> state.role.role)
     const complains = useSelector(state => state.complains.complains)
     const notifications = useSelector(state => state.notification.notification);
+    const departments = useSelector(state=> state.departments.departments)
     
 
     const [res, setRes] = useState('')
@@ -22,15 +23,13 @@ const StudentDashboard =()=>{
     useEffect(() => {
        const res =  dispatch(fetchComplainsRequest())
        dispatch(fetchComplainsRequest())
-       dispatch(fetchComplainsRequest())
-       dispatch(fetchComplainsRequest())
-       dispatch(fetchComplainsRequest())
-       const resStu = complains.filter((comp)=> comp.student_id == userRole[0].user_id)
+       
 
         // dispatch(fetchComplainRequest(userRole[0].user_id));
 
       }, []);
-
+      const resStu = complains.filter((comp)=> comp.student_id == userRole[0].user_id)
+      const stu = students.filter((stu)=> stu.student_id == userRole[0].user_id)
     useEffect(() => {
         dispatch(fetchStudentsRequest(userRole.user_id));
         const stu = students.filter((stu)=> stu.student_id == userRole.user_id)
@@ -65,7 +64,7 @@ const StudentDashboard =()=>{
                   <div className="col mr-2">
                          <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">
                             Complain Response</div>
-                           <div className="h5 mb-0 font-weight-bold text-gray-800">{res}</div>
+                           <div className="h5 mb-0 font-weight-bold text-gray-800">{resStu[0]?.complain}</div>
                     </div>
                     <div className="col-auto">
                         {/* <i className="fas fa-calendar fa-2x text-gray-300"></i> */}
@@ -83,7 +82,7 @@ const StudentDashboard =()=>{
                     <div className="col mr-2">
                         <div className="text-xs font-weight-bold text-success text-uppercase mb-1">
                             Total Point(100%)</div>
-                        <div className="h5 mb-0 font-weight-bold text-gray-800">{tot}</div>
+                        <div className="h5 mb-0 font-weight-bold text-gray-800">{stu[0]?.total_point}</div>
                     </div>
                     <div className="col-auto">
                         {/* <i className="fas fa-dollar-sign fa-2x text-gray-300"></i> */}
@@ -99,17 +98,17 @@ const StudentDashboard =()=>{
             <div className="card-body">
                 <div className="row no-gutters align-items-center">
                     <div className="col mr-2">
-                        <div className="text-xs font-weight-bold text-info text-uppercase mb-1">Manage Departments
+                        <div className="text-xs font-weight-bold text-info text-uppercase mb-1">Total notification
                         </div>
                         <div className="row no-gutters align-items-center">
                             <div className="col-auto">
-                                <div className="h5 mb-0 mr-3 font-weight-bold text-gray-800">#####</div>
+                                <div className="h5 mb-0 ml-3 mr-3 font-weight-bold text-gray-800">{notifications.length}</div>
                             </div>
                             <div className="col">
-                                <div className="progress progress-sm mr-2">
+                                {/* <div className="progress progress-sm mr-2">
                                     <div className="progress-bar bg-info a1" role="progressbar"
                                     ></div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>
@@ -127,8 +126,8 @@ const StudentDashboard =()=>{
                 <div className="row no-gutters align-items-center">
                     <div className="col mr-2">
                         <div className="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                            ########</div>
-                        <div className="h5 mb-0 font-weight-bold text-gray-800">#####</div>
+                            total department</div>
+                        <div className="h5 mb-0 font-weight-bold text-gray-800">{departments.length}</div>
                     </div>
                     <div className="col-auto">
                         {/* <i className="fas fa-comments fa-2x text-gray-300"></i> */}

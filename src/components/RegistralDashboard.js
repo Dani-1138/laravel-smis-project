@@ -3,13 +3,17 @@ import BarChart from "./BarChart";
 import DoughnutChart from "./DonatChart";
 import { fetchStudentsRequest } from "../redux/actions/studentActions";
 import { useEffect } from "react";
+import { fetchUsersRequest } from "../redux/actions/userAction";
 
 const RegistralDashboardComponent = () => {
     const dispatch = useDispatch();
     const students = useSelector(state => state.students.students);
+    const departments = useSelector(state=> state.departments.departments)
+    const users = useSelector(state=> state.user.users)
 
     useEffect(() => {
         dispatch(fetchStudentsRequest());
+        dispatch(fetchUsersRequest())
     }, []);
 
     const qualified = students.filter((student) => student.total_point > 50);
@@ -52,8 +56,8 @@ const RegistralDashboardComponent = () => {
                                 <div className="row no-gutters align-items-center">
                                     <div className="col mr-2">
                                         <div className="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                            Manage Students</div>
-                                        <div className="h5 mb-0 font-weight-bold text-gray-800">######</div>
+                                            Total Students</div>
+                                        <div className="h5 mb-0 font-weight-bold text-gray-800">{students.length}</div>
                                     </div>
                                     <div className="col-auto">
                                         {/* <i className="fas fa-dollar-sign fa-2x text-gray-300"></i> */}
@@ -69,22 +73,22 @@ const RegistralDashboardComponent = () => {
                             <div className="card-body">
                                 <div className="row no-gutters align-items-center">
                                     <div className="col mr-2">
-                                        <div className="text-xs font-weight-bold text-info text-uppercase mb-1">Manage Departments
+                                        <div className="text-xs font-weight-bold text-info text-uppercase mb-1">Total Departments
                                         </div>
                                         <div className="row no-gutters align-items-center">
                                             <div className="col-auto">
-                                                <div className="h5 mb-0 mr-3 font-weight-bold text-gray-800">#####</div>
+                                                <div className="h5 ml-2 mb-0 mr- font-weight-bold text-gray-800">{departments.length}</div>
                                             </div>
-                                            <div className="col">
+                                            {/* <div className="col">
                                                 <div className="progress progress-sm mr-2">
                                                     <div className="progress-bar bg-info a1" role="progressbar"
                                                     ></div>
                                                 </div>
-                                            </div>
+                                            </div> */}
                                         </div>
                                     </div>
                                     <div className="col-auto">
-                                        {/* <i className="fas fa-clipboard-list fa-2x text-gray-300"></i> */}
+                                        <i className="fas fa-clipboard-list fa-2x text-gray-300"></i>
                                     </div>
                                 </div>
                             </div>
@@ -98,8 +102,8 @@ const RegistralDashboardComponent = () => {
                                 <div className="row no-gutters align-items-center">
                                     <div className="col mr-2">
                                         <div className="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                            ########</div>
-                                        <div className="h5 mb-0 font-weight-bold text-gray-800">#####</div>
+                                            Total user</div>
+                                        <div className="h5 mb-0 font-weight-bold text-gray-800">{users.lenght}</div>
                                     </div>
                                     <div className="col-auto">
                                         {/* <i className="fas fa-comments fa-2x text-gray-300"></i> */}

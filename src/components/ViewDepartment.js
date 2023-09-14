@@ -170,7 +170,7 @@ function ViewDepartmentTable() {
                             <td>{dep.intake}</td>
                             <td>{dep.status}</td>
                             <td>
-                                { userRole[0].role == 'admin' && <Link   to={userRole[0].role == 'registral' ? `/update-department/${dep.id}` : `/update-intake/${dep.id}`} href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></Link>}
+                                {(userRole[0].role == 'registral' || userRole[0].role == 'admin') && <Link   to={userRole[0].role == 'registral' ? `/update-department/${dep.id}` : `/update-intake/${dep.id}`} href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></Link>}
                                 {userRole[0].role == 'registral' && <a href="#" class="delete" title="Delete" data-toggle="tooltip" style={{color:"red"}}><i class="material-icons" onClick={() => showDeleteModal(dep.id)}>&#xE872;</i></a>}
                             </td>
                         </tr>))
