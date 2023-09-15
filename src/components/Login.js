@@ -66,7 +66,7 @@ useEffect(()=>{
   },[])
 
   return (<div className='login'>
-    <MDBContainer style={{maxWidth: "30%", minWidth: "30%", color: '#fff'}} className="p-3 my-9 d-flex flex-column w-50 ">
+    <MDBContainer style={{maxWidth: "30%", minWidth: "30%",background: '#fff'}} className="p-3 my-9 d-flex flex-column w-50 " >
     {alert && <Stack sx={{ width: '100%', marginBottom: '1rem' }} spacing={2}>
     <Alert severity="error">
         <AlertTitle>Error</AlertTitle>
